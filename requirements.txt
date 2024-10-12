@@ -1,0 +1,6 @@
+aiogram==3.3.0
+Flask==3.0.3
+google_api_python_client==2.149.0
+protobuf==5.28.2
+pydrive2==1.20.0
+python-dotenv==1.0.1
