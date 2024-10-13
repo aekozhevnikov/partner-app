@@ -1,9 +1,11 @@
 import logging
 from logging.handlers import RotatingFileHandler
 from flask import Flask, send_file, jsonify, request
+from asyncio import run
 
 import os
 import asyncio
+import logging
 
 from aiogram import Bot
 from aiogram import Dispatcher
@@ -59,8 +61,8 @@ def check_subscription_and_authorization():
         user_id = request.args.get('user_id')
         partner = request.args.get('partner')
 
-        is_subscribed = subscription(bot)
-        is_authorized = auth(user_id, partner)
+        is_subscribed = run(subscription(bot))
+        is_authorized = run(auth(user_id, partner))
 
         return jsonify(is_subscribed=is_subscribed, is_authorized=is_authorized)
     except Exception as e:
