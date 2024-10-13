@@ -15,28 +15,33 @@ const checkout = {
     s: () => { [subscribe, calculate].forEach(s => s.style.display = 'none'); }
 };
 
-const checkSubscriptionAndAuthorization = () => {
-    const { is_subscribed, is_authorized } = window.location.href = `/check?partner=${start_param}&user_id=${id}`;
+const checkSubscriptionAndAuthorization = async () => {
 
-    const checks = {
-        a: is_authorized && !is_subscribed,
-        as: !is_authorized && !is_subscribed,
-        s: !is_authorized && is_subscribed
-    };
+    try {
+        const { is_subscribed, is_authorized } = await fetch(`/check?partner=${partner}&user_id=${user_id}`);
+        // const result = await response.json();
 
-    for (const key in checks) {
-        if (checks[key]) {
-            if (checkout[key]) {
-                checkout[key]();
+        // const { is_subscribed, is_authorized } = window.location.href = `/check?partner=${start_param}&user_id=${id}`;
+
+        const checks = {
+            a: is_authorized && !is_subscribed,
+            as: !is_authorized && !is_subscribed,
+            s: !is_authorized && is_subscribed
+        };
+
+        for (const key in checks) {
+            if (checks[key]) {
+                if (checkout[key]) {
+                    checkout[key]();
+                }
+                window.location.href = '/';
+                break;
             }
-            window.location.href = '/';
-            break;
         }
+    } catch (error) {
+        console.error(error);
     }
-
-    // Удаление обработчика события load после выполнения кода
-    window.removeEventListener('load', checkSubscriptionAndAuthorization);
-};
+}
 
 // Добавление обработчика события load
 window.addEventListener('load', checkSubscriptionAndAuthorization);
