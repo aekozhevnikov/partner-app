@@ -55,7 +55,7 @@ def auth_route():
 @app.route('/check', methods=['GET'])
 def check_subscription_and_authorization():
     try:
-        is_subscribed = subscription()
+        is_subscribed = subscription(bot)
         is_authorized = auth()
         return jsonify(is_subscribed=is_subscribed, is_authorized=is_authorized)
     except Exception as e:
