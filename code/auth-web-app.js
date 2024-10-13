@@ -7,7 +7,7 @@ const partner = urlParams.get('partner');
 
 tg.BackButton.show();
 
-tg.onEvent('backButtonClicked', function (event) {
+tg.onEvent('backButtonClicked', (event) => {
   window.location.href = '/';
 });
 
@@ -29,7 +29,7 @@ function formatPhoneNumber(input) {
 
 function checkTelegramAccount(input) {
   if (input.value === '') {
-    input.setCustomValidity(""); 
+    input.setCustomValidity("");
   } else {
     if (!input.value.startsWith('@')) {
       input.value = '@' + input.value;
@@ -41,7 +41,7 @@ function checkTelegramAccount(input) {
     if (!value.match(pattern)) {
       input.setCustomValidity("Неверный формат учетной записи Telegram. Используйте только буквы a-z, цифры 0-9 и _.");
     } else {
-      input.setCustomValidity(""); // Сбросить сообщение об ошибке, если ввод верен
+      input.setCustomValidity("");
     }
   }
 }
@@ -55,7 +55,7 @@ function validateName(input) {
 
   value = value.replaceAll(/\d+/g, '');
   input.value = value;
-  input.setCustomValidity(""); // Сбросить сообщение об ошибке
+  input.setCustomValidity("");
 }
 
 
@@ -192,14 +192,13 @@ try {
     });
   });
 
-  document.getElementById('partner-form').addEventListener('submit', function (event) {
+  document.getElementById('partner-form').addEventListener('submit', async (event) => {
     event.preventDefault();
     try {
       const fields = {
-        managerName: '#manager-name',
-        managerPhone: '#manager-phone',
-        managerTgAccount: '#manager-tg-account',
-        managerEmail: '#manager-email',
+        name: '#manager-name',
+        phone: '#manager-phone',
+        email: '#manager-email',
       };
 
       const data = Object.fromEntries(
@@ -207,14 +206,19 @@ try {
       );
 
       const {
-        managerName,
-        managerPhone,
-        managerTgAccount,
-        managerEmail
+        name,
+        phone,
+        email
       } = data;
 
-      alert('Данные успешно отправлены');
+      const { success } = await fetch(`/savedata?partner=${partner}&user_id=${id}&username=${username}&name=${name}&phone=${phone}&email=${email}`);
+
+      if (success) {
+        alert('Вы успешно авторизованы');
+      }
+
     } catch (error) {
+      alert('Ошибка Авторизации');
       showErrorNotification(error);
     }
   });

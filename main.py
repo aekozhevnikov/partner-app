@@ -8,6 +8,7 @@ import logging
 from aiogram import Bot, Dispatcher
 
 from functions.check import subscription, auth
+from functions.save import save
 from constants import BOT_TOKEN, HOME, AUTH
 
 app = Flask(__name__)
@@ -65,6 +66,19 @@ def check_subscription_and_authorization():
     except Exception as e:
         logger.error(f"An error occurred in check_subscription_and_authorization: {e}")
         return jsonify(error=str(e)), 500
+    
+@app.route('/savedata', methods=['GET'])
+def save_data():
+    
+    try:
+        values_list = list(request.args.values())
+        success = asyncio.run(save(arr=value_list))
+        
+         return jsonify(success=success)
+    except Exception as e:
+        logger.error(f"An error occurred in saveData: {e}")
+        return jsonify(error=str(e)), 500
+        
 
 if __name__ == '__main__':
     loop = asyncio.get_event_loop()
