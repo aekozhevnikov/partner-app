@@ -15,8 +15,7 @@ const checkout = {
     s: () => { [subscribe, calculate].forEach(s => s.style.display = 'none'); }
 };
 
-// Проверка подписки на канал при старте веб-приложения
-window.addEventListener('load', () => {
+const checkSubscriptionAndAuthorization = () => {
     const { is_subscribed, is_authorized } = window.location.href = `/check?partner=${start_param}&user_id=${id}`;
 
     const checks = {
@@ -35,7 +34,12 @@ window.addEventListener('load', () => {
         }
     }
 
-});
+    // Удаление обработчика события load после выполнения кода
+    window.removeEventListener('load', checkSubscriptionAndAuthorization);
+};
+
+// Добавление обработчика события load
+window.addEventListener('load', checkSubscriptionAndAuthorization);
 
 subscribe.addEventListener('click', function () {
     tg.openTelegramLink(channel);
