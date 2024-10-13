@@ -31,7 +31,7 @@ async def auth(user_id: str, partner: str) -> bool:
         sheet = service.spreadsheets()
 
         # Получение значений из таблицы
-        result = sheet.values().get(spreadsheetId=SPREADSHEETID, range=SHEETNAME).execute()
+        result = await sheet.values().get(spreadsheetId=SPREADSHEETID, range=SHEETNAME).execute()
         values = result.get('values', [])
 
         for row in values:
