@@ -1,5 +1,5 @@
 from logging.handlers import RotatingFileHandler
-from flask import Flask, send_file, jsonify, request, as
+from flask import Flask, send_file, jsonify, request
 
 import os
 import asyncio
