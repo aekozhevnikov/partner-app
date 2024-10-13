@@ -7,7 +7,7 @@ tg.BackButton.hide();
 
 // Проверка подписки на канал при старте веб-приложения
 window.addEventListener('load', function () {
-    const { is_subscribed, is_authorized } = window.location.href = `/check`;
+    const { is_subscribed, is_authorized } = window.location.href = `/check?partner=${start_param}&user_id=${id}`;
     tg.showAlert({ is_subscribed, is_authorized });
 });
 
