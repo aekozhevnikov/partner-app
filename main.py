@@ -74,9 +74,9 @@ def save_data():
         values_list = list(request.args.values())
         success = asyncio.run(save(arr=value_list))
         
-         return jsonify(success=success)
+        return jsonify(success=success)
     except Exception as e:
-        logger.error(f"An error occurred in saveData: {e}")
+        logger.error(f"An error occurred in save_data: {e}")
         return jsonify(error=str(e)), 500
         
 
