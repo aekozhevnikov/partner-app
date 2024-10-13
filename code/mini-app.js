@@ -18,7 +18,7 @@ const checkout = {
 const checkSubscriptionAndAuthorization = async () => {
 
     try {
-        const { is_subscribed, is_authorized } = await fetch(`/check?partner=${start_param}&user_id=${user_id}`);
+        const { is_subscribed, is_authorized } = await fetch(`/check?partner=${start_param}&user_id=${id}`);
         // const result = await response.json();
 
         // const { is_subscribed, is_authorized } = window.location.href = `/check?partner=${start_param}&user_id=${id}`;
