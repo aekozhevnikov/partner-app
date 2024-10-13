@@ -1,9 +1,11 @@
 import logging
 from aiogram import Bot
 
-from pydrive2.auth import GoogleAuth
-from google.oauth2.service_account import Credentials
+# from pydrive2.auth import GoogleAuth
+# from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
+from google.auth import load_credentials_from_file
+
 
 from constants import SPREADSHEETID, SHEETNAME, KUPISALONID
 
@@ -23,8 +25,8 @@ async def subscription(bot: Bot) -> bool:
 async def auth(user_id: str, partner: str) -> bool:
     try:
         # Аутентификация Google
-        gauth = GoogleAuth()
-        gauth.credentials = Credentials.from_service_account_file('credentials.json')
+        credentials, _ = load_credentials_from_file('credentials.json', scopes=['https://www.googleapis.com/auth/spreadsheets.readonly'])
+        service = build('sheets', 'v4', credentials=credentials)
 
         # Подключение к таблице
         service = build('sheets', 'v4', credentials=gauth.credentials)
