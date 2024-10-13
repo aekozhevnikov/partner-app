@@ -1,5 +1,5 @@
 from logging.handlers import RotatingFileHandler
-from flask import Flask, send_file, jsonify, request
+from flask import Flask, send_file, jsonify, request, as
 
 import os
 import asyncio
@@ -57,8 +57,8 @@ async def check_subscription_and_authorization():
         user_id = request.args.get('user_id')
         partner = request.args.get('partner')
 
-        is_subscribed = subscription(bot)
-        is_authorized = auth(user_id, partner)
+        is_subscribed = await subscription(bot)
+        is_authorized = await auth(user_id, partner)
 
         return jsonify(is_subscribed=is_subscribed, is_authorized=is_authorized)
     except Exception as e:
