@@ -1,14 +1,13 @@
 {
   "name": "partners-app-python",
   "version": "1.0.0",
-  "main": "webpack.config.js",
+  "main": "code/mini-app.js",
   "scripts": {
-    "build": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "partners-app-python"
+    "url": "partners-app"
   },
   "author": "hungrydev",
   "license": "MIT",
