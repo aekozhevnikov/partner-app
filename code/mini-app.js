@@ -1,13 +1,16 @@
-// const tg = window.Telegram.WebApp;
+const tg = window.Telegram.WebApp;
 const channel = 'https://t.me/kupi_salon';
-// const { user: { username, id }, start_param } = tg.initDataUnsafe;
 
 const subscribe = document.getElementById("subscribe-button");
 const auth = document.getElementById("auth-button");
 const calculate = document.getElementById("calculate-button");
 
-// tg.expand();
-// tg.BackButton.hide();
+// if (tg !== undefined) {
+
+const { user: { username, id }, start_param } = tg.initDataUnsafe;
+tg.expand();
+tg.BackButton.hide();
+// }
 
 const checkout = {
     as: () => { [subscribe, auth].forEach(s => s.style.display = 'none'); },
@@ -15,7 +18,7 @@ const checkout = {
     s: () => { [subscribe, calculate].forEach(s => s.style.display = 'none'); }
 };
 
-/* const checkSubscriptionAndAuthorization = async () => {
+const checkSubscriptionAndAuthorization = async () => {
 
     try {
         const { is_subscribed, is_authorized } = await fetch(`/check?partner=${start_param}&user_id=${id}`);
@@ -41,17 +44,17 @@ const checkout = {
     } catch (error) {
         console.error(error);
     }
-} */
+}
 
 // Добавление обработчика события load
-// window.addEventListener('load', checkSubscriptionAndAuthorization);
+window.addEventListener('load', checkSubscriptionAndAuthorization);
 
 subscribe.addEventListener('click', function () {
-    // tg.openTelegramLink(channel);
+    tg.openTelegramLink(channel);
 });
 
 auth.addEventListener('click', function () {
-    window.location.href = `/auth`/* ?partner=${start_param}&user=${username}&id=${id} */;
+    window.location.href = `/auth?partner=${start_param}&user=${username}&id=${id}`;
 });
 
 calculate.addEventListener('click', function () {
