@@ -21,10 +21,6 @@ const checkout = {
 const checkSubscriptionAndAuthorization = async () => {
     try {
         const response = await fetch(`/check?partner=${start_param}&user_id=${id}`);
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        
         const { is_subscribed, is_authorized } = await response.json();
 
         const checks = {
@@ -43,7 +39,9 @@ const checkSubscriptionAndAuthorization = async () => {
             }
         }
     } catch (error) {
-        console.error(error);
+        console.error('Error:', error);
+        console.error('Response status:', response.status);
+        console.error('Response text:', await response.text());
     }
 }
 
