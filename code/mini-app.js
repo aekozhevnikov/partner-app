@@ -13,7 +13,7 @@ const { user: { username, id }, start_param } = tg.initDataUnsafe;
 // }
 
 tg.MainButton.show();
-tg.SecodaryButon.show();
+tg.SecondaryButon.show();
 
 const checkout = {
     as: () => { [subscribe, auth].forEach(s => s.style.display = 'none'); },
