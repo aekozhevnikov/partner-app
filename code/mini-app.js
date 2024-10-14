@@ -5,6 +5,8 @@ const subscribe = document.getElementById("subscribe-button");
 const auth = document.getElementById("auth-button");
 const calculate = document.getElementById("calculate-button");
 
+tg.isClosingConfirmationEnabled(true);
+
 // if (tg !== undefined) {
 
 const { user: { username, id }, start_param } = tg.initDataUnsafe;
@@ -19,6 +21,7 @@ tg.SecondaryButton.setParams({
     is_visible: true
 });
 tg.MainButton.show();
+tg.SecondaryButton.show();
 
 
 
