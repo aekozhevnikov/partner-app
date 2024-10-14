@@ -5,7 +5,7 @@ const username = urlParams.get('user');
 const id = urlParams.get('id');
 const partner = urlParams.get('partner');
 
-tg.BackButton.show();
+// tg.BackButton.show();
 
 tg.onEvent('backButtonClicked', (event) => {
   window.location.href = '/';
@@ -215,7 +215,7 @@ try {
     });
   });
 
-  document.getElementById('partner-form').addEventListener('submit', async (event) => {
+  document.getElementById('progress-button').addEventListener('click', async (event) => {
     event.preventDefault();
     try {
       const fields = {
@@ -228,12 +228,7 @@ try {
         Object.entries(fields).map(([key, selector]) => [key, document.querySelector(selector).value])
       );
 
-      const {
-        name,
-        phone,
-        email
-      } = data;
-
+      const { name, phone, email } = data;
       const { success } = await fetch(`/savedata?partner=${partner}&user_id=${id}&username=${username}&name=${name}&phone=${phone}&email=${email}`);
 
       if (success) {

@@ -74,7 +74,7 @@ def save_data():
     
     try:
         values_list = list(request.args.values())
-        success = asyncio.run(save(arr=value_list))
+        success = asyncio.run(save(arr=values_list))
         
         return jsonify(success=success)
     except Exception as e:
@@ -83,16 +83,16 @@ def save_data():
     
 @app.route('/getdata', methods=['GET'])
 def get_data():
-    
+    loop = asyncio.get_event_loop()
+
     try:
-        values = asyncio.run(get_values())
+        values = loop.run_until_complete(get_values())
         
         return jsonify(values)
     except Exception as e:
         logger.error(f"An error occurred in get_data: {e}")
         return jsonify(error=str(e)), 500
         
-
 if __name__ == '__main__':
     loop = asyncio.get_event_loop()
     loop.create_task(bot.set_webhook(''))
