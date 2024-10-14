@@ -14,7 +14,7 @@ body {
     justify-content: center;
     padding: 20px;
     border-radius: 20px;
-    background-color: var(--tg-theme-bg-color, brightness(1.1));
+    background-color: var(--tg-theme-bg-color, brightness(1.5));
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     overflow: hidden;
 }

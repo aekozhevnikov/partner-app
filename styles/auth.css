@@ -93,15 +93,6 @@ body {
     text-align: center;
     color: var(--tg-theme-text-color);
     background-color: var(--tg-theme-bg-color);
-
-    /* &:checked {
-        background-color: var(--tg-theme-bg-color);
-    }
-
-    &:hover {
-        background-color: var(--tg-theme-bg-color);
-        
-    } */
 }
 
 field_multiselect button+button {
@@ -182,7 +173,7 @@ input:valid {
     font-weight: bold;
     margin-right: 10px;
     margin-bottom: 20px;
-    background-color: var(--tg-theme-bg-color);
+    background-color: var(--tg-theme-secondary-bg-color);
     color: var(--tg-theme-button-text-color);
     padding: 10px 20px;
     border-radius: 20px;

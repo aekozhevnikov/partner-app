@@ -12,6 +12,9 @@ const { user: { username, id }, start_param } = tg.initDataUnsafe;
 // tg.BackButton.hide();
 // }
 
+tg.MainButton.show();
+tg.SecodaryButon.show();
+
 const checkout = {
     as: () => { [subscribe, auth].forEach(s => s.style.display = 'none'); },
     a: () => { [auth, calculate].forEach(s => s.style.display = 'none'); },
