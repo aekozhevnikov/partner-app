@@ -55,7 +55,7 @@ def auth_route():
     return send_file(AUTH)
   
 @app.route('/check', methods=['GET'])
-async def check_subscription_and_authorization():
+def check_subscription_and_authorization():
     
     try:
         user_id = request.args.get('user_id')
@@ -70,7 +70,7 @@ async def check_subscription_and_authorization():
         return jsonify(error=str(e)), 500
     
 @app.route('/savedata', methods=['GET'])
-async def save_data():
+def save_data():
     
     try:
         values_list = list(request.args.values())
@@ -82,7 +82,7 @@ async def save_data():
         return jsonify(error=str(e)), 500
     
 @app.route('/getdata', methods=['GET'])
-async def get_data():
+def get_data():
     
     try:
         values = asyncio.run(get_values())
