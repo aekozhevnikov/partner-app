@@ -19,12 +19,13 @@ const checkout = {
 };
 
 const checkSubscriptionAndAuthorization = async () => {
-
     try {
-        const response = fetch(`/check?partner=${start_param}&user_id=${id}`);
+        const response = await fetch(`/check?partner=${start_param}&user_id=${id}`);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        
         const { is_subscribed, is_authorized } = await response.json();
-
-        // const { is_subscribed, is_authorized } = window.location.href = `/check?partner=${start_param}&user_id=${id}`;
 
         const checks = {
             a: is_authorized && !is_subscribed,
