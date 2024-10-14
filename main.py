@@ -61,8 +61,8 @@ async def check_subscription_and_authorization():
         user_id = request.args.get('user_id')
         partner = request.args.get('partner')
 
-        is_subscribed = await subscription(bot)
-        is_authorized = await auth(user_id, partner)
+        is_subscribed = asyncio.run(subscription(bot))
+        is_authorized = asyncio.run(auth(user_id, partner))
 
         return jsonify(is_subscribed=is_subscribed, is_authorized=is_authorized)
     except Exception as e:
@@ -74,7 +74,7 @@ async def save_data():
     
     try:
         values_list = list(request.args.values())
-        success = await save(arr=value_list)
+        success = asyncio.run(save(arr=value_list))
         
         return jsonify(success=success)
     except Exception as e:
@@ -85,7 +85,7 @@ async def save_data():
 async def get_data():
     
     try:
-        values = await get_values()
+        values = asyncio.run(get_values())
         
         return jsonify(values)
     except Exception as e:
