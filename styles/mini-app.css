@@ -1,6 +1,5 @@
 body {
     font-family: Arial, sans-serif;
-    /* background-color: #f1f1f1; */
     padding-top: 40px;
     color: var(--tg-theme-text-color);
     background: var(--tg-theme-bg-color);
@@ -15,7 +14,7 @@ body {
     justify-content: center;
     padding: 20px;
     border-radius: 20px;
-    background-color: #fff;
+    background-color: #808080;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     overflow: hidden;
 }
@@ -33,7 +32,6 @@ body {
     font-size: 14px;
     margin-top: 10px;
     margin-bottom: 10px;
-    border: 2px solid #007bff;
 
     &:hover {
         transform: scale(1.05);
