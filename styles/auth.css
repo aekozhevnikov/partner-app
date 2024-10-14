@@ -1,6 +1,7 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f1f1f1;
+    color: var(--tg-theme-text-color);
+    background: var(--tg-theme-bg-color);
     padding-top: 40px;
 }
 
@@ -11,9 +12,14 @@ body {
     margin: 0 auto;
     padding: 10px 20px;
     border-radius: 20px;
-    background-color: #fff;
+    background-color: #343030;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     overflow: hidden;
+}
+
+.button {
+    color: var(--tg-theme-button-text-color);
+    background: var(--tg-theme-button-color);
 }
 
 @media only screen and (min-width: 768px) {
@@ -103,17 +109,17 @@ field_multiselect button+button {
     font-weight: bold;
     position: relative;
     padding: 10px 20px;
-    background: #ebe4fb;
+    /* background: #ebe4fb; */
     border-radius: 20px;
     margin-top: 5px;
     margin-right: 5px;
     margin-bottom: 5px;
     border: none;
 
-    &:hover,
+    /* &:hover,
     &:focus {
         background-color: #dbd1ee;
-    }
+    } */
 
     &:after {
         content: "";
@@ -187,7 +193,7 @@ input:valid {
 input[type="text"],
 input[type="tel"] {
     width: calc(55% - 10px);
-    background-color: #f1f1f1;
+    /* background-color: #f1f1f1; */
     padding: 10px 20px;
     border-radius: 20px;
     margin-bottom: 20px;
