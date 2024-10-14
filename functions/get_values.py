@@ -4,7 +4,7 @@ import asyncio
 from pydrive2.auth import GoogleAuth
 from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
-from constants import SPREADSHEETID, SHEETNAME
+from constants import DB, GROUPSSHEETNAME
 
 # Создание и настройка асинхронного логгера
 logger = logging.getLogger(__name__)
@@ -16,17 +16,17 @@ logger.addHandler(handler)
 
 async def get_values() -> list:
     try:
-        # Аутентификация Google
-        gauth = GoogleAuth()
-        gauth.credentials = Credentials.from_service_account_file('credentials.json')
-
-        # Подключение к таблице
-        service = build('sheets', 'v4', credentials=gauth.credentials)
+        
+        credentials = Credentials.from_service_account_file('credentials.json')
+        service = build('sheets', 'v4', credentials=credentials, cache_discovery=False)
         sheet = service.spreadsheets()
+        
+        loop = asyncio.get_event_loop()
+        
+        request = sheet.values().get(spreadsheetId=DB, range=GROUPSSHEETNAME)
+        response = await loop.run_in_executor(None, request.execute)
+        values = response.get('values', [])
 
-        # Получение данных без использования await
-        result = sheet.values().get(spreadsheetId=SPREADSHEETID, range=SHEETNAME).execute()
-        values = result.get('values', [])
 
         return values
     except Exception as e:

@@ -8,19 +8,18 @@ from googleapiclient.discovery import build
 from constants import SPREADSHEETID, SHEETNAME
 
 # Настройка логирования
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.INFO, format='[%(asctime)s] [%(levelname)s] [%(name)s] %(message)s')
 logger = logging.getLogger(__name__)
 
 async def save(arr: list[str]) -> bool:
     
     try:
-        # Аутентификация Google
-        gauth = GoogleAuth()
-        gauth.credentials = Credentials.from_service_account_file('credentials.json')
-
-        # Подключение к таблице
-        service = build('sheets', 'v4', credentials=gauth.credentials)
+        
+        credentials = Credentials.from_service_account_file('credentials.json')
+        service = build('sheets', 'v4', credentials=credentials, cache_discovery=False)
         sheet = service.spreadsheets()
+
+        loop = asyncio.get_event_loop()
         
         # Определение диапазона последней строки
         range_to_append = f"{SHEETNAME}!A:A"  # Измените "A:A" на нужный диапазон столбцов

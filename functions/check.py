@@ -29,17 +29,16 @@ async def subscription(bot: Bot) -> bool:
     
 async def auth(user_id: str, partner: str) -> bool:
     try:
-        # Аутентификация Google
-        gauth = GoogleAuth()
-        gauth.credentials = Credentials.from_service_account_file('credentials.json')
-
-        # Подключение к таблице
-        service = build('sheets', 'v4', credentials=gauth.credentials)
+        
+        credentials = Credentials.from_service_account_file('credentials.json')
+        service = build('sheets', 'v4', credentials=credentials, cache_discovery=False)
         sheet = service.spreadsheets()
 
-        # Получение значений из таблицы
-        result = await sheet.values().get(spreadsheetId=SPREADSHEETID, range=SHEETNAME).execute()
-        values = result.get('values', [])
+        loop = asyncio.get_event_loop()
+
+        request = sheet.values().get(spreadsheetId=SPREADSHEETID, range=SHEETNAME)
+        response = await loop.run_in_executor(None, request.execute)
+        values = response.get('values', [])
 
         for row in values:
             if row and row[0] == partner and row[1] == user_id and row[2] and row[3]:
