@@ -82,7 +82,7 @@ def save_data():
         return jsonify(error=str(e)), 500
     
 @app.route('/getdata', methods=['GET'])
-async def get_data():
+def get_data():
     
     try:
         values = await get_values()
