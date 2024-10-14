@@ -7,9 +7,9 @@ const calculate = document.getElementById("calculate-button");
 
 // if (tg !== undefined) {
 
-const { user: { username, id }, start_param } = tg.initDataUnsafe;
-tg.expand();
-tg.BackButton.hide();
+// const { user: { username, id }, start_param } = tg.initDataUnsafe;
+// tg.expand();
+// tg.BackButton.hide();
 // }
 
 const checkout = {

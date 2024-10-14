@@ -1,4 +1,5 @@
 import logging
+
 import asyncio
 
 from pydrive2.auth import GoogleAuth
@@ -7,9 +8,13 @@ from googleapiclient.discovery import build
 
 from constants import SPREADSHEETID, SHEETNAME
 
-# Настройка логирования
-logging.basicConfig(level=logging.INFO, format='[%(asctime)s] [%(levelname)s] [%(name)s] %(message)s')
+log_formatter = logging.Formatter('[%(asctime)s] [%(levelname)s] [%(name)s] %(message)s')
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+
+handler = logging.StreamHandler()
+handler.setFormatter(log_formatter)
+logger.addHandler(handler)
 
 async def save(arr: list[str]) -> bool:
     
@@ -25,18 +30,26 @@ async def save(arr: list[str]) -> bool:
         range_to_append = f"{SHEETNAME}!A:A"  # Измените "A:A" на нужный диапазон столбцов
         
         # Получение данных из последней строки
-        result = await sheet.values().get(spreadsheetId=SPREADSHEETID, range=range_to_append).execute()
-        last_row = len(result['values']) + 1
-        
+        request = sheet.values().get(spreadsheetId=SPREADSHEETID, range=range_to_append)
+        response = await loop.run_in_executor(None, request.execute)
+        values = response.get('values', [])
+        last_row = len(values) + 1
+                
         # Запись массива в последнюю строку
         value_input_option = 'USER_ENTERED'
+        range_to_save = f"{SHEETNAME}!A{last_row}:G{last_row}"
         value_range_body = {
-            'range': f"{SHEETNAME}!A{last_row}:F{last_row}",
+            'range': range_to_save,
             'majorDimension': 'ROWS',
             'values': [arr]
         }
-        sheet.values().append(spreadsheetId=SPREADSHEETID, range=range_to_append,
-                              valueInputOption=value_input_option, body=value_range_body).execute()
+        
+        save_request = sheet.values().append(spreadsheetId=SPREADSHEETID, range=range_to_save,
+                              valueInputOption=value_input_option, body=value_range_body)
+        
+        save_response = await loop.run_in_executor(None, save_request.execute)
+        
+        logger.info("Ueser data successfully saved to the spreadsheet")
 
         return True
     except Exception as e:

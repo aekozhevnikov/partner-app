@@ -1,4 +1,5 @@
 import logging
+
 import asyncio
 
 from pydrive2.auth import GoogleAuth
@@ -6,10 +7,10 @@ from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
 from constants import DB, GROUPSSHEETNAME
 
-# Создание и настройка асинхронного логгера
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
 log_formatter = logging.Formatter('[%(asctime)s] [%(levelname)s] [%(name)s] %(message)s')
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+
 handler = logging.StreamHandler()
 handler.setFormatter(log_formatter)
 logger.addHandler(handler)
@@ -26,7 +27,6 @@ async def get_values() -> list:
         request = sheet.values().get(spreadsheetId=DB, range=GROUPSSHEETNAME)
         response = await loop.run_in_executor(None, request.execute)
         values = response.get('values', [])
-
 
         return values
     except Exception as e:

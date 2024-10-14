@@ -1,4 +1,5 @@
 import logging
+
 import asyncio
 
 from aiogram import Bot
@@ -9,10 +10,9 @@ from googleapiclient.discovery import build
 
 from constants import SPREADSHEETID, SHEETNAME, KUPISALONID
 
-# Настройка логирования
 log_formatter = logging.Formatter('[%(asctime)s] [%(levelname)s] [%(name)s] %(message)s')
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
+logger.setLevel(logging.DEBUG)
 
 handler = logging.StreamHandler()
 handler.setFormatter(log_formatter)
