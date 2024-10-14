@@ -82,14 +82,14 @@ def save_data():
         return jsonify(error=str(e)), 500
     
 @app.route('/getdata', methods=['GET'])
-def get_data():
+async def get_data():
     
     try:
-        values = asyncio.run(get_values())
+        values = await get_values()
         
         return jsonify(values)
     except Exception as e:
-        logger.error(f"An error occurred in save_data: {e}")
+        logger.error(f"An error occurred in get_data: {e}")
         return jsonify(error=str(e)), 500
         
 
