@@ -10,7 +10,7 @@ from constants import SPREADSHEETID, SHEETNAME
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
-async def get_values() -> list || bool:
+async def get_values() -> list:
     
     try:
         # Аутентификация Google
@@ -28,4 +28,4 @@ async def get_values() -> list || bool:
         return values
     except Exception as e:
         logger.error(f"An error occurred in auth: {e}")
-        return False
+        return []
