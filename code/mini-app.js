@@ -7,7 +7,7 @@ const calculate = document.getElementById("calculate-button");
 
 // if (tg !== undefined) {
 
-// const { user: { username, id }, start_param } = tg.initDataUnsafe;
+const { user: { username, id }, start_param } = tg.initDataUnsafe;
 // tg.expand();
 // tg.BackButton.hide();
 // }
@@ -40,8 +40,6 @@ const checkSubscriptionAndAuthorization = async () => {
         }
     } catch (error) {
         console.error('Error:', error);
-        console.error('Response status:', response.status);
-        console.error('Response text:', await response.text());
     }
 }
 
