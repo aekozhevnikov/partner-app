@@ -1,4 +1,5 @@
 import logging
+import asyncio
 from aiogram import Bot
 
 from pydrive2.auth import GoogleAuth
@@ -11,6 +12,10 @@ from constants import SPREADSHEETID, SHEETNAME, KUPISALONID
 log_formatter = logging.Formatter('[%(asctime)s] [%(levelname)s] [%(name)s] %(message)s')
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
+
+handler = logging.StreamHandler()
+handler.setFormatter(log_formatter)
+logger.addHandler(handler)
 
 async def subscription(bot: Bot) -> bool:
     try:
