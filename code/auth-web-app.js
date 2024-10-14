@@ -16,7 +16,7 @@ async function fetchData() {
   const selectElement = document.getElementById('field_select-type');
 
   try {
-    const response = await fetch('/getvalues');
+    const response = await fetch('/getdata');
     const data = await response.json();
     const flatValues = data.flat();
 
