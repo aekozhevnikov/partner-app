@@ -5,7 +5,7 @@ const username = urlParams.get('user');
 const id = urlParams.get('id');
 const partner = urlParams.get('partner');
 
-// tg.BackButton.show();
+tg.BackButton.show();
 
 tg.onEvent('backButtonClicked', (event) => {
   window.location.href = '/';
