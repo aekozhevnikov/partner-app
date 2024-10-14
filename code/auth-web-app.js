@@ -32,7 +32,7 @@ async function fetchData() {
   }
 }
 
-await fetchData();
+fetchData();
 
 function formatPhoneNumber(input) {
 
