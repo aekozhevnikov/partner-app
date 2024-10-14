@@ -5,7 +5,7 @@ const subscribe = document.getElementById("subscribe-button");
 const auth = document.getElementById("auth-button");
 const calculate = document.getElementById("calculate-button");
 
-tg.isClosingConfirmationEnabled(true);
+tg.enableClosingConfirmation();
 
 // if (tg !== undefined) {
 
