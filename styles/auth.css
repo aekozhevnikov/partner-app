@@ -12,7 +12,7 @@ body {
     margin: 0 auto;
     padding: 10px 20px;
     border-radius: 20px;
-    background-color: #343030;
+    background-color: var(--tg-theme-bg-color, brightness(1.1));
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     overflow: hidden;
 }
@@ -33,7 +33,7 @@ body {
     width: 100%;
     display: block;
     min-height: 46px;
-    border: 2px solid #007bff;
+    border: 2px solid var(--tg-theme-button-color);
     box-sizing: border-box;
     border-radius: 20px;
     font-size: 14px;
@@ -41,7 +41,7 @@ body {
     margin-bottom: 20px;
     margin-top: 20px;
 
-    outline-color: #cdd6f3;
+    outline-color: var(--tg-theme-bg-color);
 
     &:hover {
         box-shadow: 0 0 2px rgba(0, 0, 0, 0.16);
@@ -74,10 +74,10 @@ body {
     position: absolute;
     top: calc(100% - 10px);
     width: 100%;
-    border: 2px solid #cdd6f3;
+    border: 2px solid var(--tg-theme-button-color);
     border-radius: 20px;
     box-sizing: border-box;
-    outline-color: #cdd6f3;
+    outline-color: var(--tg-theme-bg-color);
     z-index: 6;
 }
 
@@ -183,6 +183,7 @@ input:valid {
     margin-right: 10px;
     margin-bottom: 20px;
     background-color: var(--tg-theme-bg-color);
+    color: var(--tg-theme-button-text-color);
     padding: 10px 20px;
     border-radius: 20px;
 }
@@ -194,6 +195,7 @@ input[type="tel"] {
     padding: 10px 20px;
     border-radius: 20px;
     margin-bottom: 20px;
+    background-color: var(--tg-theme-bg-color);
 }
 
 .multiselect_block {
