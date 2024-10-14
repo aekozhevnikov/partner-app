@@ -18,7 +18,7 @@ tg.SecondaryButton.setParams({
     is_active: true,
     is_visible: true
 });
-// tg.MainButton.show();
+tg.MainButton.show();
 
 
 
