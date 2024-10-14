@@ -8,7 +8,7 @@ from googleapiclient.discovery import build
 from constants import SPREADSHEETID, SHEETNAME, KUPISALONID
 
 # Настройка логирования
-log_formatter = logging.Formatter('[%(asctime)s] [%(name)s] [%(levelname)s] %(message)s')
+log_formatter = logging.Formatter('[%(asctime)s] [%(levelname)s] [%(name)s] %(message)s')
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
