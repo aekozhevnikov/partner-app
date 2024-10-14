@@ -7,8 +7,9 @@ from googleapiclient.discovery import build
 from constants import SPREADSHEETID, GROUPSSHEETNAME
 
 # Настройка логирования
-logging.basicConfig(level=logging.INFO, format='[%(asctime)s] [%(name)s] [%(levelname)s] %(message)s')
+log_formatter = logging.Formatter('[%(asctime)s] [%(name)s] [%(levelname)s] %(message)s')
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 async def save(arr: list[str]) -> bool:
     
