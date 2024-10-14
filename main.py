@@ -16,9 +16,8 @@ from constants import BOT_TOKEN, HOME, AUTH
 app = Flask(__name__)
 
 # Настройка логирования
-log_formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.INFO, format='[%(asctime)s] [%(name)s] [%(levelname)s] %(message)s')
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
 
 # Создание и настройка RotatingFileHandler для записи логов в файл
 file_handler = RotatingFileHandler('app.log', maxBytes=10000, backupCount=5)
