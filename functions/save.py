@@ -31,7 +31,7 @@ async def save(arr: list[str]) -> bool:
         range_to_append = f"{SHEETNAME}!A:A"  # Измените "A:A" на нужный диапазон столбцов
         
         # Получение данных из последней строки
-        result = sheet.values().get(spreadsheetId=SPREADSHEETID, range=range_to_append).execute()
+        result = await sheet.values().get(spreadsheetId=SPREADSHEETID, range=range_to_append).execute()
         last_row = len(result['values']) + 1
         
         # Запись массива в последнюю строку

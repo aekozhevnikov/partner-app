@@ -20,7 +20,7 @@ logger.addHandler(handler)
 
 async def subscription(bot: Bot) -> bool:
     try:
-        member = bot.get_chat_member(chat_id=KUPISALONID, user_id=bot.id)
+        member = await bot.get_chat_member(chat_id=KUPISALONID, user_id=bot.id)
         return member.is_chat_member()
     except Exception as e:
         logger.error(f"An error occurred in check_subscription: {e}")
@@ -38,7 +38,7 @@ async def auth(user_id: str, partner: str) -> bool:
         sheet = service.spreadsheets()
 
         # Получение значений из таблицы
-        result = sheet.values().get(spreadsheetId=SPREADSHEETID, range=SHEETNAME).execute()
+        result = await sheet.values().get(spreadsheetId=SPREADSHEETID, range=SHEETNAME).execute()
         values = result.get('values', [])
 
         for row in values:
