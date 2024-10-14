@@ -19,6 +19,7 @@ TIMEZONE_MOSCOW = ZoneInfo("Europe/Moscow")
 # SPREADSHEETS
 SPREADSHEETID=os.getenv("spreadsheetID")
 SHEETNAME=os.getenv("sheetName")
+GROUPSSHEETNAME=os.getenv("groups_sheetname")
 
 # ROUTE
 HOME='html/mini-app-main.html'

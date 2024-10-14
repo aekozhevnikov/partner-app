@@ -9,6 +9,8 @@ from aiogram import Bot, Dispatcher
 
 from functions.check import subscription, auth
 from functions.save import save
+from functions.get_values import get_values
+
 from constants import BOT_TOKEN, HOME, AUTH
 
 app = Flask(__name__)
@@ -75,6 +77,17 @@ def save_data():
         success = asyncio.run(save(arr=value_list))
         
         return jsonify(success=success)
+    except Exception as e:
+        logger.error(f"An error occurred in save_data: {e}")
+        return jsonify(error=str(e)), 500
+    
+@app.route('/getdata', methods=['GET'])
+def get_data():
+    
+    try:
+        values = asyncio.run(get_values())
+        
+        return jsonify(values)
     except Exception as e:
         logger.error(f"An error occurred in save_data: {e}")
         return jsonify(error=str(e)), 500

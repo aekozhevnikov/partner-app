@@ -11,6 +11,29 @@ tg.onEvent('backButtonClicked', (event) => {
   window.location.href = '/';
 });
 
+async function fetchData() {
+
+  const selectElement = document.getElementById('field_select-type');
+
+  try {
+    const response = await fetch('/getvalues');
+    const data = await response.json();
+    const flatValues = data.flat();
+
+    flatValues.forEach(option => {
+      const optionElement = document.createElement('option');
+      optionElement.value = option
+      optionElement.text = option
+      selectElement.appendChild(optionElement);
+    });
+
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+}
+
+await fetchData();
+
 function formatPhoneNumber(input) {
 
   if (!input.value.startsWith('+') && input.value.match(/^\d/)) {

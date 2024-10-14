@@ -4,7 +4,7 @@ from pydrive2.auth import GoogleAuth
 from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
 
-from constants import SPREADSHEETID, SHEETNAME
+from constants import SPREADSHEETID, GROUPSSHEETNAME
 
 # Настройка логирования
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -31,7 +31,7 @@ async def save(arr: list[str]) -> bool:
         # Запись массива в последнюю строку
         value_input_option = 'USER_ENTERED'
         value_range_body = {
-            'range': f"{SHEETNAME}!A{last_row}:F{last_row}",
+            'range': f"{GROUPSSHEETNAME}!A{last_row}:F{last_row}",
             'majorDimension': 'ROWS',
             'values': [arr]
         }
