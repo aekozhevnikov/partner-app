@@ -12,8 +12,12 @@ const { user: { username, id }, start_param } = tg.initDataUnsafe;
 // tg.BackButton.hide();
 // }
 
-tg.SecondaryButton.setParams({ position: 'top', has_shine_effect: true });
-tg.SecondaryButton.show();
+tg.SecondaryButton.setParams({
+    position: 'top',
+    has_shine_effect: true,
+    is_active: true,
+    is_visible: true
+});
 // tg.MainButton.show();
 
 
