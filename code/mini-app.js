@@ -18,7 +18,7 @@ const checkout = {
 };
 
 let isCheckPerformed = false;
-let isDataFetched = false; 
+let isDataFetched = false;
 
 const checkSubscriptionAndAuthorization = async () => {
     if (!isCheckPerformed) { // Проверка, чтобы выполнить только один раз
@@ -62,10 +62,10 @@ const fetchData = async () => {
 };
 
 if (document.readyState === 'complete') {
-    await checkSubscriptionAndAuthorization();
+    checkSubscriptionAndAuthorization();
 
     if (!isDataFetched) {
-        await fetchData();
+        fetchData();
     }
 } else {
     window.addEventListener('load', checkSubscriptionAndAuthorization, { once: true });
