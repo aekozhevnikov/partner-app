@@ -135,7 +135,7 @@ function getValues() {
   const { manager_name, phone, email } = fields;
 
   buttonValues = buttonValues.join(', ');
-  return { buttonValues, manager_name, phone, email }
+  return { buttonValues, manager_name, phone, email };
 }
 
 if (id && username) {
@@ -146,6 +146,7 @@ if (id && username) {
     tg.MainButton.showProgress(true);
 
     const { buttonValues, manager_name, phone, email } = getValues();
+    console.log({ buttonValues, manager_name, phone, email });
     if (buttonValues && manager_name && phone && email) {
 
       const timestamp = new Date().getTime();
@@ -160,7 +161,7 @@ if (id && username) {
           &phone=${phone}
           &email=${email}
           &groups=${buttonValues}`);
-          
+
         const { success } = await response.json();
         if (success) {
           tg.showPopup({ message: 'Регистрация прошла успешно' });
