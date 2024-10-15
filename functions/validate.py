@@ -2,17 +2,13 @@ import hashlib
 import urllib.parse
 import hmac
 
-from urllib.parse import unquote_plus
-
 async def verify_telegram_web_app_data(data, bot_token):
-    
-    decoded_data = {key: unquote_plus(value) for key, value in data}
 
     # HMAC-SHA-256 signature of the bot's token with the constant string WebAppData used as a key.
     secret_key = "WebAppData".encode()
     secret = hmac.new(secret_key, bot_token.encode(), hashlib.sha256)
     
-    items = [(k, v) for k, v in decoded_data.items() if k != "hash"]
+    items = [(k, v) for k, v in data.items() if k != "hash"]
     items.sort(key=lambda x: x[0])  # Сортировка по ключам
     data_check_string = "\n".join([f"{k}={v}" for k, v in items])
 

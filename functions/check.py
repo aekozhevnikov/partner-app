@@ -1,13 +1,10 @@
 import logging
-
 import asyncio
 
 from aiogram import Bot
-
 from pydrive2.auth import GoogleAuth
 from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
-
 from constants import SPREADSHEETID, SHEETNAME, KUPISALONID
 
 log_formatter = logging.Formatter('[%(asctime)s] [%(levelname)s] [%(name)s] %(message)s')
