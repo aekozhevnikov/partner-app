@@ -18,6 +18,7 @@ const checkout = {
 };
 
 let isCheckPerformed = false; // Флаг, чтобы отслеживать, была ли проверка выполнена
+let isDataFetched = false; // Флаг, чтобы отслеживать, был ли запрос на получение данных выполнен
 
 const checkSubscriptionAndAuthorization = async () => {
     if (!isCheckPerformed) { // Проверка, чтобы выполнить только один раз
@@ -48,14 +49,32 @@ const checkSubscriptionAndAuthorization = async () => {
     }
 };
 
-window.addEventListener('load', async function () {
-    if (!isCheckPerformed) {
-        console.log(tg.initData);
-        const data = await fetch(`/validate-init?${tg.initData}`).then(res => res.json());
+const fetchData = async () => {
+    try {
+        const response = await fetch(`/validate-init?${tg.initData}`);
+        const data = await response.json();
         console.log(data);
-
-        checkSubscriptionAndAuthorization(); // Вызов функции проверки после загрузки данных
+    } catch (error) {
+        console.error('Error:', error);
     }
+
+    isDataFetched = true; // Установка флага в true, чтобы указать, что запрос на получение данных выполнен
+};
+
+window.addEventListener('load', async function () {
+    console.log(tg.initData);
+
+    if (document.readyState === 'complete') {
+        checkSubscriptionAndAuthorization();
+
+        if (!isDataFetched) {
+            fetchData();
+        }
+    } else {
+        window.addEventListener('load', checkSubscriptionAndAuthorization, { once: true });
+        window.addEventListener('load', fetchData, { once: true });
+    }
+
 });
 
 subscribe.addEventListener('click', function () {
