@@ -7,7 +7,7 @@ window.addEventListener("ready", async function () {
 	const data = await fetch(
 		"/validate-init",
 		{ method: "POST", body: tg.initData },
-	).then(res => res.json());
+	).then(res => console.log(res.json()));
 });
 
 const subscribe = document.getElementById("subscribe-button");
@@ -49,8 +49,7 @@ const checkSubscriptionAndAuthorization = async () => {
     }
 }
 
-// Добавление обработчика события load
-window.addEventListener('load', checkSubscriptionAndAuthorization);
+window.addEventListener('ready', checkSubscriptionAndAuthorization);
 
 subscribe.addEventListener('click', function () {
     tg.openTelegramLink(channel);
