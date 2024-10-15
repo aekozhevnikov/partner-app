@@ -76,13 +76,9 @@ def configure_routes(app, dp, bot):
             try:
                 user_id = request.args.get('user_id')
                 partner = request.args.get('partner')
-                
-                # loop = asyncio.get_event_loop()
 
                 is_subscribed = asyncio.run((subscription(bot)))
-                # is_authorized = asyncio.run(auth(user_id, partner))
-                
-                # loop.close()
+                is_authorized = asyncio.run(auth(user_id, partner))
                 
                 return jsonify(is_subscribed=is_subscribed)
             except Exception as e:
