@@ -4,6 +4,7 @@ from flask import send_file, jsonify, request
 import os
 import asyncio
 import logging
+import hashlib
 
 from aiogram import Bot, Dispatcher
 
