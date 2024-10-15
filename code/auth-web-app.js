@@ -15,8 +15,6 @@ tg.setBottomBarColor("bottom_bar_bg_color");
 //   }
 // });
 
-console.log(phone_number);
-
 tg.onEvent('backButtonClicked', (event) => {
   window.location.href = '/';
   tg.MainButton.hide();
