@@ -9,13 +9,13 @@ tg.BackButton.show();
 tg.setBottomBarColor("bottom_bar_bg_color");
 const phone_number = tg.requestContact(async (shared) => {
   if (shared) {
-    const phoneNumber = Telegram.newContact
-    console.log(shared);
+    // const phoneNumber = Telegram.newContact
+    console.log(callback);
     if (callback) {
-      callback(result);
+      callback();
     }
   }
-});
+}, callback);
 
 console.log(phone_number);
 
