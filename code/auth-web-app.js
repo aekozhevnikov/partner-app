@@ -5,8 +5,18 @@ const username = urlParams.get('user');
 const id = urlParams.get('id');
 const partner = urlParams.get('partner');
 
+const {
+  bg_color,
+  text_color,
+  hint_color,
+  button_color,
+  button_text_color,
+  secondary_bg_color,
+  bottom_bar_bg_color
+} = tg.themeParams;
+
 tg.BackButton.show();
-tg.setBottomBarColor(bottom_bar_bg_color)
+tg.setBottomBarColor(bottom_bar_bg_color);
 
 tg.onEvent('backButtonClicked', (event) => {
   window.location.href = '/';
