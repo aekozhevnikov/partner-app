@@ -79,7 +79,7 @@ def configure_routes(app, dp, bot):
                 
                 # loop = asyncio.get_event_loop()
 
-                is_subscribed = asyncio.run(subscription(bot))
+                is_subscribed = asyncio.run((subscription(bot)))
                 is_authorized = asyncio.run(auth(user_id, partner))
                 
                 return jsonify(is_authorized=is_authorized, is_subscribed=is_subscribed)
