@@ -6,7 +6,7 @@ const id = urlParams.get('id');
 const partner = urlParams.get('partner');
 
 tg.BackButton.show();
-tg.setBottomBarColor(tg.themeParams.bottom_bar_bg_color)
+tg.setBottomBarColor(bottom_bar_bg_color)
 
 tg.onEvent('backButtonClicked', (event) => {
   window.location.href = '/';
