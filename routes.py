@@ -101,7 +101,7 @@ def configure_routes(app, dp, bot):
             
             try:
                 values_list = list(request.args.values())
-                logger.debug(values_list)
+                logger.debug("Data successfully recived from mini-app: {values_list}")
                 success = asyncio.run(save(arr=values_list))
                 
                 loop.close()
@@ -117,7 +117,7 @@ def configure_routes(app, dp, bot):
             try:
                 values = loop.run_until_complete(get_values())
                 
-                loop.close()
+                # loop.close()
                 return jsonify(values)
             except Exception as e:
                 logger.error(f"An error occurred in get_data: {e}")
