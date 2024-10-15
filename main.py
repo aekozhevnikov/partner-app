@@ -31,7 +31,13 @@ if __name__ == '__main__':
     loop = asyncio.get_event_loop()
     loop.create_task(route_conf.on_startup(dp))  # Вызов установки Webhook асинхронно
     loop.create_task(dp.start_polling())  # Запуск Polling асинхронно
-    loop.run_until_complete()  
+
+    # Выполнение цикла выполнения только одного запроса
+    try:
+        loop.run_forever()
+    finally:
+        loop.run_until_complete(loop.shutdown_asyncgens())
+        loop.close()
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
