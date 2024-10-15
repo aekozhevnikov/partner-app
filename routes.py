@@ -22,6 +22,9 @@ handler = logging.StreamHandler()
 handler.setFormatter(log_formatter)
 logger.addHandler(handler)
 
+loop = asyncio.new_event_loop()
+asyncio.set_event_loop(loop)
+
 def configure_routes(app, dp, bot):
     
         @app.route("/validate-init", methods=["POST"])
