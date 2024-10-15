@@ -2,7 +2,7 @@ import hashlib
 
 async def HMAC_SHA256(secret_key, bot_token):
     hash_object = hashlib.sha256(secret_key.encode())
-    hash_object.update(bot_token)
+    hash_object.update(bot_token.encode())
     hash_value = hash_object.digest()
     return hash_value
 
