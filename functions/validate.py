@@ -6,7 +6,7 @@ from urllib.parse import unquote_plus
 
 async def verify_telegram_web_app_data(data, bot_token):
     
-     decoded_data = {key: unquote_plus(value) for key, value in data}
+    decoded_data = {key: unquote_plus(value) for key, value in data}
 
     # HMAC-SHA-256 signature of the bot's token with the constant string WebAppData used as a key.
     secret_key = "WebAppData".encode()
