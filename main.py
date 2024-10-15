@@ -37,6 +37,9 @@ if __name__ == '__main__':
 
         await route_conf.on_startup(dp)
         await dp.start_polling()
+        
+         # Остановка aiohttp-приложения
+        await app.cleanup()
 
     try:
         asyncio.run(main())
