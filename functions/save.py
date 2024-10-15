@@ -34,6 +34,7 @@ async def save(arr: list[str]) -> bool:
         response = await loop.run_in_executor(None, request.execute)
         values = response.get('values', [])
         last_row = len(values) + 1
+        logger.debug(arr)
                 
         # Запись массива в последнюю строку
         value_input_option = 'USER_ENTERED'
