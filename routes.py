@@ -66,10 +66,10 @@ def configure_routes(app, dp, bot):
             static_folder = os.path.join(app.root_path, 'code')
             return send_file(os.path.join(static_folder, path))
 
-        @app.errorhandler(Exception)
-        def error_handler(error):
-            logger.error(f"An error occurred: {error}")
-            return 'Something broke!', 500
+        # @app.errorhandler(Exception)
+        # def error_handler(error):
+        #     logger.error(f"An error occurred: {error}")
+        #     return 'Something broke!', 500
         
         @app.route('/auth')
         def auth_route():
