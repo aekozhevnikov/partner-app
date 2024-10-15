@@ -7,6 +7,16 @@ const partner = urlParams.get('partner');
 
 tg.BackButton.show();
 tg.setBottomBarColor("bottom_bar_bg_color");
+const phone_number = tg.requestContact(async (shared) => {
+  if (shared) {
+    const phoneNumber = Telegram.newContact.phone_number;
+    if (callback) {
+      callback(phoneNumber);
+    }
+  }
+});
+
+console.log(phone_number);
 
 tg.onEvent('backButtonClicked', (event) => {
   window.location.href = '/';
@@ -146,12 +156,17 @@ if (id && username) {
         const { success } = await response.json();
         if (success) {
           tg.showPopup({ message: 'Регистрация прошла успешно' });
+          tg.MainButton.hideProgress();
+          tg.MainButton.hide();
+          window.location.href = '/';
         }
       } catch (error) {
         tg.showPopup({ title: 'Error', message: error });
+        tg.MainButton.hideProgress();
       }
     } else {
       tg.showPopup({ message: 'Вначале заполните все данные' });
+      tg.MainButton.hideProgress();
     }
   });
 }
