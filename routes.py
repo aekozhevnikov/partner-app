@@ -29,7 +29,7 @@ def configure_routes(app, dp, bot):
         async def validate_init():
             try:
                 data = request.form
-
+                logger.debug(data)
                 # Дождитесь выполнения асинхронной функции HMAC_SHA256
                 secret_key = await HMAC_SHA256("WebAppData", BOT_TOKEN)
 
