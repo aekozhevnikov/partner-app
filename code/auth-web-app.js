@@ -127,40 +127,47 @@ multiselect_block.forEach(parent => {
   });
 });
 
-// document.getElementById('progress-button').addEventListener('click', async (event) => {
-//   event.preventDefault();
-//   try {
-//     const fields = {
-//       name: '#manager-name',
-//       phone: '#manager-phone',
-//       email: '#manager-email',
-//     };
+const fields = {
+  name: '#manager-name',
+  phone: '#manager-phone',
+  email: '#manager-email',
+};
 
-//     const data = Object.fromEntries(
-//       Object.entries(fields).map(([key, selector]) => [key, document.querySelector(selector).value])
-//     );
+const data = Object.fromEntries(
+  Object.entries(fields).map(([key, selector]) => [key, document.querySelector(selector).value])
+);
 
-//     const buttons = document.querySelectorAll('.btn_multiselect');
-//     let buttonValues = [];
+const buttons = document.querySelectorAll('.btn_multiselect');
+let buttonValues = [];
 
-//     buttons.forEach(button => {
-//       const buttonValue = button.textContent.trim();
-//       buttonValues.push(buttonValue);
-//     });
+buttons.forEach(button => {
+  const buttonValue = button.textContent.trim();
+  buttonValues.push(buttonValue);
+});
 
-//     buttonValues = buttonValues.join(', ');
-//     console.log(buttonValues);
+buttonValues = buttonValues.join(', ');
+const { name, phone, email } = data;
 
-//     const { name, phone, email } = data;
-//     const response = await fetch(`/savedata?partner=${partner}&user_id=${id}&username=${username}&name=${name}&phone=${phone}&email=${email}&groups=${buttonValues}`);
-//     const { success } = await response.json();
+if (id && username && name && phone && email && buttonValues) {
+  tg.MainButton.show();
 
-//     if (success) {
-//       alert('Вы успешно авторизованы');
-//     }
+  tg.onEvent('mainButtonClicked', async (event) => {
+    tg.mainButton.showProgress({ leaveActive: true });
 
-//   } catch (error) {
-//     alert('Ошибка Авторизации');
-//     showErrorNotification(error);
-//   }
-// });
+    try {
+
+      const response = await fetch(`/savedata?partner=${partner}&user_id=${id}&username=${username}&name=${name}&phone=${phone}&email=${email}&groups=${buttonValues}`);
+      const { success } = await response.json();
+
+      if (success) {
+        tg.showPopUp({ message: 'Регистрация прошла успешно' });
+      }
+
+    } catch (error) {
+
+      tg.showPopUp({ ttite: 'Error', message: error });
+    }
+
+  });
+
+}
