@@ -12,7 +12,7 @@ from aiogram import Bot, Dispatcher
 from functions.check import subscription, auth
 from functions.save import save
 from functions.get_values import get_values
-from functions.validate import HMAC_SHA256, getCheckString
+from functions.validate import verify_telegram_web_app_data
 
 from constants import BOT_TOKEN, HOME, AUTH
 
@@ -30,18 +30,9 @@ def configure_routes(app, dp, bot):
         def validate_init():
             try:
                 decoded_data = {key: unquote_plus(value) for key, value in request.args.items()}
-            
-                secret_key = asyncio.run(HMAC_SHA256("WebAppData", BOT_TOKEN))
-                data_check_string = asyncio.run(getCheckString(decoded_data))
-                
-                # logger.debug(data_check_string)
-                # logger.debug(decoded_data.get("hash"))
+                check = verify_telegram_web_app_data(decoded_data, BOT_TOKEN)
 
-                hash_object = hashlib.sha256(secret_key.encode())
-                hash_object.update(data_check_string.encode())
-                _hash = hash_object.hexdigest()
-
-                if _hash == decoded_data.get("hash"):
+                if check:
                     # Валидация успешна
                     logger.debug("Validation successful: %s", decoded_data)
                     return jsonify(dict(decoded_data))
