@@ -26,27 +26,12 @@ logger.addHandler(file_handler)
 
 # Конфигурирование маршрутов
 route_conf = configure_routes(app, dp, bot)
-        
-async def start_bot():
-    bot = Bot('<YOUR_BOT_TOKEN>')
-    dp = Dispatcher(bot)
-    # Добавьте обработчики событий и команд для вашего бота
 
-    try:
-        await dp.start_polling()
-        await asyncio.Future()  # Бесконечное ожидание - бот будет обрабатывать запросы пользователей
-    finally:
-        await dp.storage.close()
-        await dp.storage.wait_closed()
+async def start_bot():
+    await dp.start_polling()
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
     loop = asyncio.get_event_loop()
-    try:
-        loop.run_until_complete(start_bot())
-    except KeyboardInterrupt:
-        # Обработка прерывания (например, нажатия Ctrl+C)
-        pass
-    finally:
-        loop.close()
+    loop.run_until_complete(start_bot())
     
