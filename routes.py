@@ -29,28 +29,29 @@ def configure_routes(app, dp, bot):
         @app.route("/validate-init", methods=["GET"])
         async def validate_init():
             try:
-                data = list(request.args.values())
+                data = request.args
 
-                # Декодирование данных из списка
-                decoded_data = {key: unquote_plus(value) for value in data for key, value in enumerate(data)}
-
+                decoded_data = {value: unquote_plus(data[value]) for value in range(len(data))}
                 logger.debug(decoded_data)
                 
+                # Декодирование данных из списка
+                # decoded_data = {key: unquote_plus(value) for value in data for key, value in enumerate(data)}
+                
                 # Преобразование значений в строку и объединение
-                data_string = " ".join(map(str, decoded_data))
+                # data_string = " ".join(map(str, decoded_data))
 
                 # Применение метода replace() к строке и сохранение результата
-                modified_data = data_string.replace("old_substring", "new_substring")
+                # modified_data = data_string.replace("old_substring", "new_substring")
 
                 # Преобразование результата в строку
-                final_string = str(modified_data)
+                # final_string = str(modified_data)
                 
-                logging.debug(final_string)
+                # logging.debug(final_string)
 
                 # Дождитесь выполнения асинхронной функции HMAC_SHA256
                 secret_key = await HMAC_SHA256("WebAppData", BOT_TOKEN)
 
-                data_check_string = await getCheckString(final_string)
+                data_check_string = await getCheckString(decoded_data)
 
                 # Преобразуйте secret_key в шестнадцатеричное представление без использования encode()
                 hash_val = hashlib.sha256(secret_key + data_check_string.encode()).hexdigest()
