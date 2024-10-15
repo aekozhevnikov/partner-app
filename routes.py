@@ -29,17 +29,28 @@ def configure_routes(app, dp, bot):
         @app.route("/validate-init", methods=["GET"])
         async def validate_init():
             try:
-                data = request.args.to_dict(flat=False)  # Получение данных из параметров URL
+                data = list(request.args.values())
 
-                # Декодирование данных (при необходимости)
-                decoded_data = {key: unquote_plus(value) for key, value in data.items()}
+                # Декодирование данных из списка
+                decoded_data = {key: unquote_plus(value) for value in data for key, value in enumerate(data)}
 
                 logger.debug(decoded_data)
+                
+                # Преобразование значений в строку и объединение
+                data_string = " ".join(map(str, values_list))
+
+                # Применение метода replace() к строке и сохранение результата
+                modified_data = data_string.replace("old_substring", "new_substring")
+
+                # Преобразование результата в строку
+                final_string = str(modified_data)
+                
+                logging.debug(final_string)
 
                 # Дождитесь выполнения асинхронной функции HMAC_SHA256
                 secret_key = await HMAC_SHA256("WebAppData", BOT_TOKEN)
 
-                data_check_string = await getCheckString(decoded_data)
+                data_check_string = await getCheckString(final_string)
 
                 # Преобразуйте secret_key в шестнадцатеричное представление без использования encode()
                 hash_val = hashlib.sha256(secret_key + data_check_string.encode()).hexdigest()
@@ -109,7 +120,7 @@ def configure_routes(app, dp, bot):
             
             try:
                 values_list = list(request.args.values())
-                logger.debug("Data successfully recived from mini-app: {values_list}")
+                logger.debug(f"Data successfully recived from mini-app: {values_list}")
                 success = asyncio.run(save(arr=values_list))
                 
                 # loop.close()
