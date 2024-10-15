@@ -3,6 +3,7 @@ from flask import Flask, send_file, jsonify, request,  session
 
 import os
 import asyncio
+import logging
 
 from routes import configure_routes
 from aiogram import Bot, Dispatcher
