@@ -77,14 +77,14 @@ def configure_routes(app, dp, bot):
                 user_id = request.args.get('user_id')
                 partner = request.args.get('partner')
                 
-                loop = asyncio.get_event_loop()
+                # loop = asyncio.get_event_loop()
 
                 is_subscribed = asyncio.run((subscription(bot)))
-                is_authorized = asyncio.run(auth(user_id, partner))
+                # is_authorized = asyncio.run(auth(user_id, partner))
                 
-                loop.close()
+                # loop.close()
                 
-                return jsonify(is_authorized=is_authorized, is_subscribed=is_subscribed)
+                return jsonify(is_subscribed=is_subscribed)
             except Exception as e:
                 logger.error(f"An error occurred in check_subscription_and_authorization: {e}")
                 return jsonify(error=str(e)), 500
