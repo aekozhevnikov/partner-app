@@ -9,8 +9,8 @@ tg.BackButton.show();
 tg.setBottomBarColor("bottom_bar_bg_color");
 const phone_number = tg.requestContact(async (shared) => {
   if (shared) {
-    const phoneNumber = Telegram.newContact.result;
-    console.log(phoneNumber);
+    const phoneNumber = Telegram.newContact
+    console.log(shared);
     if (callback) {
       callback(result);
     }
