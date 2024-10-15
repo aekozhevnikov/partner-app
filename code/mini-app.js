@@ -22,6 +22,8 @@ const checkSubscriptionAndAuthorization = async () => {
         const response = await fetch(`/check?partner=${start_param}&user_id=${id}`);
         const { is_subscribed, is_authorized } = await response.json();
 
+        console.log({ is_subscribed, is_authorized });
+
         const checks = {
             a: is_authorized && !is_subscribed,
             as: !is_authorized && !is_subscribed,
