@@ -28,7 +28,7 @@ asyncio.set_event_loop(loop)
 def configure_routes(app, dp, bot):
     
         @app.route("/validate-init", methods=["POST"])
-        async def validate_init():
+        def validate_init():
             try:
                 data = request.form
 
@@ -80,14 +80,14 @@ def configure_routes(app, dp, bot):
         
         @app.route('/check', methods=['GET'])
         def check_subscription_and_authorization():
-            loop = asyncio.get_event_loop()
+            # loop = asyncio.get_event_loop()
             
             try:
                 user_id = request.args.get('user_id')
                 partner = request.args.get('partner')
 
-                is_subscribed = loop.run_until_complete(subscription(bot))
-                is_authorized = loop.run_until_complete(auth(user_id, partner))
+                is_subscribed = asyncio.run(subscription(bot))
+                is_authorized = asyncio.run(auth(user_id, partner))
                 
                 # loop.close()
                 return jsonify(is_subscribed=is_subscribed, is_authorized=is_authorized)
@@ -96,26 +96,28 @@ def configure_routes(app, dp, bot):
                 return jsonify(error=str(e)), 500
             
         @app.route('/savedata', methods=['GET'])
-        def save_data():
-            loop = asyncio.get_event_loop()
+        async def save_data():
+            # loop = asyncio.get_event_loop()
             
             try:
                 values_list = list(request.args.values())
                 logger.debug("Data successfully recived from mini-app: {values_list}")
-                success = loop.run_until_complete(save(arr=values_list))
+                success = asyncio.run(save(arr=values_list))
                 
+                # loop.close()
                 return jsonify(success=success)
             except Exception as e:
                 logger.error(f"An error occurred in save_data: {e}")
                 return jsonify(error=str(e)), 500
             
         @app.route('/getdata', methods=['GET'])
-        def get_data():
-            loop = asyncio.new_event_loop()
+        async def get_data():
+            # loop = asyncio.new_event_loop()
 
             try:
-                values = loop.run_until_complete(get_values())
+                values = asyncio.run(get_values())
                 
+                # loop.close()
                 return jsonify(values)
             except Exception as e:
                 logger.error(f"An error occurred in get_data: {e}")
