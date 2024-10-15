@@ -22,9 +22,6 @@ handler = logging.StreamHandler()
 handler.setFormatter(log_formatter)
 logger.addHandler(handler)
 
-loop = asyncio.new_event_loop()
-asyncio.set_event_loop(loop)
-
 def configure_routes(app, dp, bot):
     
         @app.route("/validate-init", methods=["POST"])
@@ -80,7 +77,7 @@ def configure_routes(app, dp, bot):
         
         @app.route('/check', methods=['GET'])
         def check_subscription_and_authorization():
-            # loop = asyncio.get_event_loop()
+            loop = asyncio.get_event_loop()
             
             try:
                 user_id = request.args.get('user_id')
@@ -96,8 +93,8 @@ def configure_routes(app, dp, bot):
                 return jsonify(error=str(e)), 500
             
         @app.route('/savedata', methods=['GET'])
-        async def save_data():
-            # loop = asyncio.get_event_loop()
+        def save_data():
+            loop = asyncio.get_event_loop()
             
             try:
                 values_list = list(request.args.values())
@@ -111,11 +108,11 @@ def configure_routes(app, dp, bot):
                 return jsonify(error=str(e)), 500
             
         @app.route('/getdata', methods=['GET'])
-        async def get_data():
-            # loop = asyncio.new_event_loop()
+        def get_data():
+            loop = asyncio.new_event_loop()
 
             try:
-                values = asyncio.run(get_values())
+                values = loop.run_until_complete(get_values())
                 
                 # loop.close()
                 return jsonify(values)
