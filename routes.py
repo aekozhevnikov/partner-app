@@ -1,11 +1,9 @@
 from logging.handlers import RotatingFileHandler
 from flask import send_file, jsonify, request
-from urllib.parse import unquote_plus
 
 import os
 import asyncio
 import logging
-import hashlib
 
 from aiogram import Bot, Dispatcher
 
@@ -29,15 +27,12 @@ def configure_routes(app, dp, bot):
         @app.route("/validate-init", methods=["GET"])
         def validate_init():
             try:
-                decoded_data = {key: unquote_plus(value) for key, value in request.args.items()}
-                _hash = asyncio.run(verify_telegram_web_app_data(decoded_data, BOT_TOKEN))
+                _hash = asyncio.run(verify_telegram_web_app_data(request.args.items(), BOT_TOKEN))
 
                 if _hash == decoded_data.get("hash"):
-                    # Валидация успешна
                     logger.debug("Validation successful: %s", decoded_data)
                     return jsonify(dict(decoded_data))
                 else:
-                    # Валидация неудачна
                     logger.warning("Validation failed: %s", decoded_data)
                     return jsonify({}), 401
             except Exception as e:
@@ -76,7 +71,7 @@ def configure_routes(app, dp, bot):
         
         @app.route('/check', methods=['GET'])
         def check_subscription_and_authorization():
-            loop = asyncio.get_event_loop()
+            # loop = asyncio.get_event_loop()
             
             try:
                 user_id = request.args.get('user_id')
@@ -85,7 +80,6 @@ def configure_routes(app, dp, bot):
                 is_subscribed = asyncio.run(subscription(bot))
                 is_authorized = asyncio.run(auth(user_id, partner))
                 
-                # loop.close()
                 return jsonify(is_subscribed=is_subscribed, is_authorized=is_authorized)
             except Exception as e:
                 logger.error(f"An error occurred in check_subscription_and_authorization: {e}")
@@ -100,7 +94,6 @@ def configure_routes(app, dp, bot):
                 logger.debug(f"Data successfully recived from mini-app: {values_list}")
                 success = asyncio.run(save(arr=values_list))
                 
-                # loop.close()
                 return jsonify(success=success)
             except Exception as e:
                 logger.error(f"An error occurred in save_data: {e}")
