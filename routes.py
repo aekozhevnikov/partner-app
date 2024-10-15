@@ -26,10 +26,10 @@ logger.addHandler(handler)
 
 def configure_routes(app, dp, bot):
     
-        @app.route("/validate-init", methods=["POST"])
+        @app.route("/validate-init", methods=["GET"])
         async def validate_init():
             try:
-                data = request.form.to_dict(flat=False)  # Преобразование данных в словарь
+                data = request.args.to_dict(flat=False)  # Получение данных из параметров URL
 
                 # Декодирование данных (при необходимости)
                 decoded_data = {key: unquote_plus(value) for key, value in data.items()}
@@ -55,7 +55,6 @@ def configure_routes(app, dp, bot):
             except Exception as e:
                 logger.error('An error occurred: %s', str(e))
                 return jsonify({'error': str(e)}), 500
-
 
         async def on_startup(dp):
             try:
