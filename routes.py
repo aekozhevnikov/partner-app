@@ -37,7 +37,7 @@ def configure_routes(app, dp, bot):
                 logger.debug(decoded_data)
                 
                 # Преобразование значений в строку и объединение
-                data_string = " ".join(map(str, values_list))
+                data_string = " ".join(map(str, decoded_data))
 
                 # Применение метода replace() к строке и сохранение результата
                 modified_data = data_string.replace("old_substring", "new_substring")
