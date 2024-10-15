@@ -29,6 +29,8 @@ logger.addHandler(file_handler)
 route_conf = configure_routes(app, dp, bot)
 
 if __name__ == '__main__':
+    loop = asyncio.get_event_loop()
+
     async def main():
         runner = web.AppRunner(app)
         await runner.setup()
@@ -37,11 +39,11 @@ if __name__ == '__main__':
 
         await route_conf.on_startup(dp)
         await dp.start_polling()
-        
-         # Остановка aiohttp-приложения
-        await app.cleanup()
 
     try:
-        asyncio.run(main())
+        loop.run_until_complete(main())
     except KeyboardInterrupt:
         pass
+    finally:
+        loop.run_until_complete(app.shutdown())
+        loop.close()
