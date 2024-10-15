@@ -32,10 +32,10 @@ async def auth(user_id: str, partner: str) -> bool:
         service = build('sheets', 'v4', credentials=credentials, cache_discovery=False)
         sheet = service.spreadsheets()
 
-        # loop = asyncio.get_event_loop()
+        loop = asyncio.get_event_loop()
 
         request = sheet.values().get(spreadsheetId=SPREADSHEETID, range=SHEETNAME)
-        response = await request.execute()
+        response = await loop.run_in_executor(None, request.execute)
         values = response.get('values', [])
         
         logging.debug(values)
@@ -43,7 +43,7 @@ async def auth(user_id: str, partner: str) -> bool:
         for row in values:
             if row and row[1] == partner and row[2] == user_id and row[3] and row[4] and row[5] and row[6]:
                 return True
-        
+                    
         return False
     except Exception as e:
         logger.error(f"An error occurred in auth: {e}")

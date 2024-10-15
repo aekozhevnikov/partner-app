@@ -1,5 +1,5 @@
 from logging.handlers import RotatingFileHandler
-from flask import Flask, send_file, jsonify, request,  session
+from flask import Flask
 
 import asyncio
 import logging
@@ -28,17 +28,10 @@ logger.addHandler(file_handler)
 route_conf = configure_routes(app, dp, bot)
         
 if __name__ == '__main__':
-    async def main():
-        await route_conf.on_startup(dp)  # Вызов установки Webhook асинхронно
-        await dp.start_polling()  # Запуск Polling асинхронно
-
-    # asyncio.run(main())  # Закомментировано
-
     loop = asyncio.get_event_loop()
-    try:
-        loop.run_until_complete(main())  # Запуск цикла событий
-    finally:
-        loop.close()  
+    loop.create_task(route_conf.on_startup(dp))  # Вызов установки Webhook асинхронно
+    loop.create_task(dp.start_polling())  # Запуск Polling асинхронно
+    loop.run_forever()  
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
