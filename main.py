@@ -35,4 +35,7 @@ if __name__ == '__main__':
     loop.run_forever()  
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True)
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(asyncio.gather(
+        loop.create_task(app.run(host='0.0.0.0', debug=True)),
+    ))
