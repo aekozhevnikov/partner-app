@@ -133,7 +133,7 @@ function getValues() {
 
 if (id && username) {
   tg.MainButton.show();
-  tg.MainButton.setParams({ has_shine_effect: true });
+  tg.MainButton.setParams({ has_shine_effect: true, text: 'Зарегистироваться',  });
 
   tg.onEvent('mainButtonClicked', async (event) => {
     tg.mainButton.showProgress(true);

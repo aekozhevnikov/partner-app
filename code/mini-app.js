@@ -1,29 +1,15 @@
 const tg = window.Telegram.WebApp;
 const channel = 'https://t.me/kupi_salon';
 
+tg.ready();
+
 const subscribe = document.getElementById("subscribe-button");
 const auth = document.getElementById("auth-button");
 const calculate = document.getElementById("calculate-button");
 
 tg.enableClosingConfirmation();
 
-// if (tg !== undefined) {
-
 const { user: { username, id }, start_param } = tg.initDataUnsafe;
-// tg.expand();
-// tg.BackButton.hide();
-// }
-
-tg.SecondaryButton.setParams({
-    position: 'top',
-    has_shine_effect: true,
-    is_active: true,
-    is_visible: true
-});
-tg.MainButton.show();
-tg.SecondaryButton.show();
-
-
 
 const checkout = {
     as: () => { [subscribe, auth].forEach(s => s.style.display = 'none'); },
