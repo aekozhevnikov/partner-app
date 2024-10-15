@@ -37,7 +37,7 @@ async def save(arr: list[str]) -> bool:
                 
         # Запись массива в последнюю строку
         value_input_option = 'USER_ENTERED'
-        range_to_save = f"{SHEETNAME}!A{last_row}:G{last_row}"
+        range_to_save = f"{SHEETNAME}!A{last_row}:H{last_row}"
         value_range_body = {
             'range': range_to_save,
             'majorDimension': 'ROWS',

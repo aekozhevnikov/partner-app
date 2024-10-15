@@ -41,7 +41,7 @@ async def auth(user_id: str, partner: str) -> bool:
         values = response.get('values', [])
 
         for row in values:
-            if row and row[0] == partner and row[1] == user_id and row[2] and row[3]:
+            if row and row[1] == partner and row[2] == user_id and row[3] and row[4] and row[5] and row[6]:
                 return True
         
         return False

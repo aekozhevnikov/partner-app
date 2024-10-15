@@ -148,8 +148,19 @@ if (id && username) {
     const { buttonValues, manager_name, phone, email } = getValues();
     if (buttonValues && manager_name && phone && email) {
 
+      const timestamp = new Date().getTime();
+
       try {
-        const response = await fetch(`/savedata?partner=${partner}&user_id=${id}&username=${username}&name=${manager_name}&phone=${phone}&email=${email}&groups=${buttonValues}`);
+        const response = await fetch(
+          `/savedata?timestamp=${timestamp}
+          &partner=${partner}
+          &user_id=${id}
+          &username=${username}
+          &name=${manager_name}
+          &phone=${phone}
+          &email=${email}
+          &groups=${buttonValues}`);
+          
         const { success } = await response.json();
         if (success) {
           tg.showPopup({ message: 'Регистрация прошла успешно' });
