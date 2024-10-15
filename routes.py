@@ -35,6 +35,7 @@ def configure_routes(app, dp, bot):
                 data_check_string = asyncio.run(getCheckString(decoded_data))
                 
                 logger.debug(data_check_string)
+                logger.debug(decoded_data.get("hash"))
 
                 hash_val = hashlib.sha256(secret_key + data_check_string.encode()).hexdigest()
 
