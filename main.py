@@ -29,14 +29,17 @@ route_conf = configure_routes(app, dp, bot)
         
 if __name__ == '__main__':
     loop = asyncio.get_event_loop()
-    loop.create_task(route_conf.on_startup(dp))  # Вызов установки Webhook асинхронно
-    loop.create_task(dp.start_polling())  # Запуск Polling асинхронно
 
-    # Выполнение цикла выполнения только одного запроса
     try:
+        # Создание и запуск цикла обработки событий
+        loop.run_until_complete(route_conf.on_startup(dp))
+        loop.run_until_complete(dp.start_polling())
         loop.run_forever()
+    except KeyboardInterrupt:
+        # Обработка прерывания (например, нажатия Ctrl+C)
+        pass
     finally:
-        loop.run_until_complete(loop.shutdown_asyncgens())
+        # Закрытие цикла обработки событий
         loop.close()
 
 if __name__ == '__main__':
