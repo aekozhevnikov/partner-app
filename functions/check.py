@@ -25,7 +25,7 @@ async def subscription(bot: Bot) -> bool:
         return False
     
     
-async def auth(user_id: str, partner: str) -> bool:
+def auth(user_id: str, partner: str) -> bool:
     try:
         
         credentials = Credentials.from_service_account_file('credentials.json')
