@@ -100,10 +100,9 @@ def configure_routes(app, dp, bot):
             loop = asyncio.get_event_loop()
             
             try:
-                values_dict = request.args.to_dict()  # Преобразование параметров запроса в словарь
-                logger.debug(values_dict)
-                
-                success = asyncio.run(save(arr=list(values_dict.values())))
+                values_list = list(request.args.values())
+                logger.debug(values_list)
+                success = asyncio.run(save(arr=values_list))
                 
                 loop.close()
                 return jsonify(success=success)

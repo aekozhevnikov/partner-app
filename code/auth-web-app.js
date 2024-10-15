@@ -132,7 +132,7 @@ function getValues() {
     buttonValues.push(buttonValue);
   });
 
-  const { manager_name, phone, email } = fields;
+  const { manager_name, phone, email } = data;
 
   buttonValues = buttonValues.join(', ');
   return { buttonValues, manager_name, phone, email };
@@ -152,8 +152,7 @@ if (id && username) {
       const timestamp = new Date().getTime();
 
       try {
-        const response = await fetch(
-          `/savedata?timestamp=${timestamp}&partner=${partner}&user_id=${id}&username=${username}&name=${manager_name}&phone=${phone}&email=${email}&groups=${buttonValues}`);
+        const response = await fetch(`/savedata?timestamp=${timestamp}&partner=${partner}&user_id=${id}&username=${username}&name=${manager_name}&phone=${phone}&email=${email}&groups=${buttonValues}`);
 
         const { success } = await response.json();
         if (success) {
