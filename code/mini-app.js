@@ -3,6 +3,13 @@ const channel = 'https://t.me/kupi_salon';
 
 tg.ready();
 
+window.addEventListener("ready", async function () {
+	const data = await fetch(
+		"/validate-init",
+		{ method: "POST", body: tg.initData },
+	).then(res => res.json());
+});
+
 const subscribe = document.getElementById("subscribe-button");
 const auth = document.getElementById("auth-button");
 const calculate = document.getElementById("calculate-button");
