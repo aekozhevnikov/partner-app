@@ -24,7 +24,7 @@ async def save(arr: list[str]) -> bool:
         service = build('sheets', 'v4', credentials=credentials, cache_discovery=False)
         sheet = service.spreadsheets()
 
-        loop = asyncio.get_event_loop()
+        loop = asyncio.new_event_loop()
         
         # Определение диапазона последней строки
         range_to_append = f"{SHEETNAME}!A:A"  # Измените "A:A" на нужный диапазон столбцов

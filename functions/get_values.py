@@ -22,7 +22,7 @@ async def get_values() -> list:
         service = build('sheets', 'v4', credentials=credentials, cache_discovery=False)
         sheet = service.spreadsheets()
         
-        loop = asyncio.get_event_loop()
+        loop = asyncio.new_event_loop()
         
         request = sheet.values().get(spreadsheetId=DB, range=GROUPSSHEETNAME)
         response = await loop.run_in_executor(None, request.execute)
