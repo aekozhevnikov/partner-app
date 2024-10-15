@@ -33,7 +33,6 @@ const checkSubscriptionAndAuthorization = async () => {
                 if (checkout[key]) {
                     checkout[key]();
                 }
-                window.location.href = '/';
                 break;
             }
         }
