@@ -136,7 +136,7 @@ if (id && username) {
   tg.MainButton.setParams({ has_shine_effect: true });
 
   tg.onEvent('mainButtonClicked', async (event) => {
-    tg.mainButton.showProgress({ leaveActive: true });
+    tg.mainButton.showProgress(true);
 
     const { buttonValues, manager_name, phone, email } = getValues();
     if (buttonValues && manager_name && phone && email) {
