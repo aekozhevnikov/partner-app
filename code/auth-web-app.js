@@ -129,11 +129,11 @@ async function getValues() {
   return { buttonValues, manager_name, phone, email }
 }
 
-if (id && username && manager_name && phone && email) {
+if (id && username) {
   tg.MainButton.show();
 
   getValues().then(async ({ buttonValues, manager_name, phone, email }) => {
-    if (buttonValues) {
+    if (buttonValues && manager_name && phone && email) {
       tg.onEvent('mainButtonClicked', async (event) => {
         tg.mainButton.showProgress({ leaveActive: true });
 
