@@ -17,8 +17,8 @@ const checkout = {
     s: () => { [subscribe, calculate].forEach(s => s.style.display = 'none'); }
 };
 
-let isCheckPerformed = false; // Флаг, чтобы отслеживать, была ли проверка выполнена
-let isDataFetched = false; // Флаг, чтобы отслеживать, был ли запрос на получение данных выполнен
+let isCheckPerformed = false;
+let isDataFetched = false; 
 
 const checkSubscriptionAndAuthorization = async () => {
     if (!isCheckPerformed) { // Проверка, чтобы выполнить только один раз
@@ -61,21 +61,16 @@ const fetchData = async () => {
     isDataFetched = true; // Установка флага в true, чтобы указать, что запрос на получение данных выполнен
 };
 
-// window.addEventListener('load', async function () {
-console.log(tg.initData);
-
 if (document.readyState === 'complete') {
-    checkSubscriptionAndAuthorization();
+    await checkSubscriptionAndAuthorization();
 
     if (!isDataFetched) {
-        fetchData();
+        await fetchData();
     }
 } else {
     window.addEventListener('load', checkSubscriptionAndAuthorization, { once: true });
     window.addEventListener('load', fetchData, { once: true });
 }
-
-// });
 
 subscribe.addEventListener('click', function () {
     tg.openTelegramLink(channel);
