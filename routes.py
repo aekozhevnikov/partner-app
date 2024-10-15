@@ -71,15 +71,14 @@ def configure_routes(app, dp, bot):
             return send_file(AUTH)
         
         @app.route('/check', methods=['GET'])
-        def check_subscription_and_authorization():
-            # loop = asyncio.get_event_loop()
-            
+        async def check_subscription_and_authorization():
+
             try:
                 user_id = request.args.get('user_id')
                 partner = request.args.get('partner')
 
-                is_subscribed = asyncio.run(subscription(bot))
-                is_authorized = asyncio.run(auth(user_id, partner))
+                is_subscribed = await subscription(bot)
+                is_authorized = await auth(user_id, partner)
                 
                 return jsonify(is_authorized=is_authorized, is_subscribed=is_subscribed)
             except Exception as e:
