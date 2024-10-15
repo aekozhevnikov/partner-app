@@ -37,11 +37,6 @@ def configure_routes(app, dp, bot, logger):
                 logger.error('An error occurred: %s', str(e))
                 return jsonify({'error': str(e)}), 500
 
-        # @app.after_request
-        # def clear_session(response):
-        #     session.clear()  # Очистка сессии после каждого запроса
-        #     return response
-
         async def on_startup(dp):
             try:
                 await bot.set_webhook('') 
@@ -95,6 +90,7 @@ def configure_routes(app, dp, bot, logger):
             
             try:
                 values_list = list(request.args.values())
+                logger.debug(values_list)
                 success = asyncio.run(save(arr=values_list))
                 
                 loop.close()
