@@ -30,8 +30,8 @@ def configure_routes(app, dp, bot):
         def validate_init():
             try:
                 decoded_data = {key: unquote_plus(value) for key, value in request.args.items()}
-
-                secret_key = asyncio.run(HMAC_SHA256("WebAppData", BOT_TOKEN))
+                bot_token_bytes = BOT_TOKEN.encode("utf-8")
+                secret_key = asyncio.run(HMAC_SHA256(b"WebAppData", bot_token_bytes))
                 data_check_string = asyncio.run(getCheckString(decoded_data))
                 
                 # logger.debug(data_check_string)
