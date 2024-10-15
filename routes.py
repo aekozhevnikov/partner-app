@@ -1,5 +1,6 @@
 from logging.handlers import RotatingFileHandler
 from flask import send_file, jsonify, request
+from urllib.parse import unquote_plus
 
 import os
 import asyncio
@@ -27,7 +28,8 @@ def configure_routes(app, dp, bot):
         @app.route("/validate-init", methods=["GET"])
         def validate_init():
             try:
-                _hash = asyncio.run(verify_telegram_web_app_data(request.args.items(), BOT_TOKEN))
+                decoded_data = {key: unquote_plus(value) for key, value in request.args.items()}
+                _hash = asyncio.run(verify_telegram_web_app_data(decoded_data, BOT_TOKEN))
 
                 if _hash == decoded_data.get("hash"):
                     logger.debug("Validation successful: %s", decoded_data)
@@ -71,7 +73,7 @@ def configure_routes(app, dp, bot):
         
         @app.route('/check', methods=['GET'])
         def check_subscription_and_authorization():
-            # loop = asyncio.get_event_loop()
+            loop = asyncio.get_event_loop()
             
             try:
                 user_id = request.args.get('user_id')
