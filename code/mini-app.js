@@ -54,7 +54,7 @@ const fetchData = async () => {
 
 window.addEventListener('load', async () => {
     await fetchData();
-    // await checkSubscriptionAndAuthorization()
+    await checkSubscriptionAndAuthorization();
 });
 
 subscribe.addEventListener('click', function () {
