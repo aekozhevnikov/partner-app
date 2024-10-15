@@ -145,13 +145,13 @@ if (id && username) {
         const response = await fetch(`/savedata?partner=${partner}&user_id=${id}&username=${username}&name=${manager_name}&phone=${phone}&email=${email}&groups=${buttonValues}`);
         const { success } = await response.json();
         if (success) {
-          tg.showPopUp({ message: 'Регистрация прошла успешно' });
+          tg.showPopup({ message: 'Регистрация прошла успешно' });
         }
       } catch (error) {
-        tg.showPopUp({ title: 'Error', message: error });
+        tg.showPopup({ title: 'Error', message: error });
       }
     } else {
-      tg.showPopUp({ message: 'Вначале заполните все данные' });
+      tg.showPopup({ message: 'Вначале заполните все данные' });
     }
   });
 }
