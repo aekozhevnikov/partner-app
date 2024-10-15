@@ -30,9 +30,9 @@ def configure_routes(app, dp, bot):
         def validate_init():
             try:
                 decoded_data = {key: unquote_plus(value) for key, value in request.args.items()}
-                check = verify_telegram_web_app_data(decoded_data, BOT_TOKEN)
+                _hash = asyncio.run(verify_telegram_web_app_data(decoded_data, BOT_TOKEN))
 
-                if check:
+                if _hash == decoded_data.get("hash"):
                     # Валидация успешна
                     logger.debug("Validation successful: %s", decoded_data)
                     return jsonify(dict(decoded_data))
