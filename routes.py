@@ -26,10 +26,10 @@ logger.addHandler(handler)
 def configure_routes(app, dp, bot):
     
         @app.route("/validate-init", methods=["GET"])
-        def validate_init():
+        async def validate_init():
             try:
                 decoded_data = {key: unquote_plus(value) for key, value in request.args.items()}
-                _hash = asyncio.run(verify_telegram_web_app_data(decoded_data, BOT_TOKEN))
+                _hash = await verify_telegram_web_app_data(decoded_data, BOT_TOKEN)
 
                 if _hash == decoded_data.get("hash"):
                     logger.debug("Validation successful: %s", decoded_data)
@@ -76,8 +76,6 @@ def configure_routes(app, dp, bot):
             try:
                 user_id = request.args.get('user_id')
                 partner = request.args.get('partner')
-                
-                # loop = asyncio.get_event_loop()
 
                 is_subscribed = await subscription(bot)
                 is_authorized = await auth(user_id, partner)
