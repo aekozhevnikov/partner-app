@@ -6,6 +6,7 @@ const id = urlParams.get('id');
 const partner = urlParams.get('partner');
 
 tg.BackButton.show();
+tg.setBottomBarColor(tg.themeParams.bottom_bar_bg_color)
 
 tg.onEvent('backButtonClicked', (event) => {
   window.location.href = '/';
@@ -134,6 +135,7 @@ if (id && username) {
 
   getValues().then(async ({ buttonValues, manager_name, phone, email }) => {
     if (buttonValues && manager_name && phone && email) {
+      tg.MainButton.setParams({ has_shine_effect: true });
       tg.onEvent('mainButtonClicked', async (event) => {
         tg.mainButton.showProgress({ leaveActive: true });
 
