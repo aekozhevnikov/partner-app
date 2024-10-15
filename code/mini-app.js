@@ -61,21 +61,21 @@ const fetchData = async () => {
     isDataFetched = true; // Установка флага в true, чтобы указать, что запрос на получение данных выполнен
 };
 
-window.addEventListener('load', async function () {
-    console.log(tg.initData);
+// window.addEventListener('load', async function () {
+console.log(tg.initData);
 
-    if (document.readyState === 'complete') {
-        checkSubscriptionAndAuthorization();
+if (document.readyState === 'complete') {
+    checkSubscriptionAndAuthorization();
 
-        if (!isDataFetched) {
-            fetchData();
-        }
-    } else {
-        window.addEventListener('load', checkSubscriptionAndAuthorization, { once: true });
-        window.addEventListener('load', fetchData, { once: true });
+    if (!isDataFetched) {
+        fetchData();
     }
+} else {
+    window.addEventListener('load', checkSubscriptionAndAuthorization, { once: true });
+    window.addEventListener('load', fetchData, { once: true });
+}
 
-});
+// });
 
 subscribe.addEventListener('click', function () {
     tg.openTelegramLink(channel);
