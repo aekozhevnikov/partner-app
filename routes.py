@@ -14,7 +14,18 @@ from functions.validate import HMAC_SHA256, getCheckString
 
 from constants import BOT_TOKEN, HOME, AUTH
 
-def configure_routes(app, dp, bot, logger):
+# Настройка логирования
+log_formatter = logging.Formatter('[%(asctime)s] [%(levelname)s] [%(name)s] %(message)s')
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+
+# Создание и настройка RotatingFileHandler для записи логов в файл
+file_handler = RotatingFileHandler('logs/app.log', maxBytes=10000, backupCount=5)
+file_handler.setLevel(logging.DEBUG) 
+file_handler.setFormatter(log_formatter)
+logger.addHandler(file_handler)
+
+def configure_routes(app, dp, bot):
     
         @app.route("/validate-init", methods=["POST"])
         def validate_init():
