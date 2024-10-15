@@ -1,7 +1,7 @@
 from logging.handlers import RotatingFileHandler
 from flask import Flask, send_file, jsonify, request,  session
+from aiohttp import web
 
-import os
 import asyncio
 import logging
 
@@ -27,15 +27,25 @@ logger.addHandler(file_handler)
 
 # Конфигурирование маршрутов
 route_conf = configure_routes(app, dp, bot)
-        
+
+async def start_app():
+    runner = web.AppRunner(app)
+    await runner.setup()
+    site = web.TCPSite(runner, '0.0.0.0', 5000)
+    await site.start()
+
+async def stop_app():
+    app.shutdown()
+
 if __name__ == '__main__':
     loop = asyncio.get_event_loop()
     loop.create_task(route_conf.on_startup(dp))  # Вызов установки Webhook асинхронно
     loop.create_task(dp.start_polling())  # Запуск Polling асинхронно
-    loop.run_forever()  
-
-if __name__ == '__main__':
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(asyncio.gather(
-        loop.create_task(app.run(host='0.0.0.0', debug=True)),
-    ))
+    loop.create_task(start_app())  # Запуск aiohttp-приложения
+    try:
+        loop.run_forever()
+    except KeyboardInterrupt:
+        pass  # Остановка при нажатии Ctrl+C
+    finally:
+        loop.run_until_complete(stop_app())
+        loop.close()
