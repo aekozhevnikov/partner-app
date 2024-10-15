@@ -153,14 +153,7 @@ if (id && username) {
 
       try {
         const response = await fetch(
-          `/savedata?timestamp=${timestamp}
-          &partner=${partner}
-          &user_id=${id}
-          &username=${username}
-          &name=${manager_name}
-          &phone=${phone}
-          &email=${email}
-          &groups=${buttonValues}`);
+          `/savedata?timestamp=${timestamp}&partner=${partner}&user_id=${id}&username=${username}&name=${manager_name}&phone=${phone}&email=${email}&groups=${buttonValues}`);
 
         const { success } = await response.json();
         if (success) {
