@@ -77,7 +77,7 @@ def configure_routes(app, dp, bot):
         
         @app.route('/check', methods=['GET'])
         def check_subscription_and_authorization():
-            loop = asyncio.new_event_loop()
+            loop = asyncio.get_event_loop()
             
             try:
                 user_id = request.args.get('user_id')
@@ -94,7 +94,7 @@ def configure_routes(app, dp, bot):
             
         @app.route('/savedata', methods=['GET'])
         def save_data():
-            loop = asyncio.new_event_loop()
+            loop = asyncio.get_event_loop()
             
             try:
                 values_list = list(request.args.values())
