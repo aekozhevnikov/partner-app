@@ -111,6 +111,7 @@ field_multiselect button+button {
     margin-right: 5px;
     margin-bottom: 5px;
     border: none;
+    background-color: var(--tg-theme-button-color);
 
     &:after {
         content: "";
@@ -176,7 +177,7 @@ input:valid {
     font-weight: bold;
     margin-right: 10px;
     margin-bottom: 20px;
-    background-color: var(--tg-theme-secondary-bg-color);
+    background-color: var(--tg-theme-button-color);
     color: var(--tg-theme-button-text-color);
     padding: 10px 20px;
     border-radius: 20px;
@@ -185,7 +186,7 @@ input:valid {
 input[type="text"],
 input[type="tel"] {
     width: calc(55% - 10px);
-    color: var(--tg-theme-button-text-color);
+    color: var(--tg-theme-text-color);
     padding: 10px 20px;
     border-radius: 20px;
     margin-bottom: 20px;
