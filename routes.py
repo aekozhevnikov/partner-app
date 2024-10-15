@@ -25,27 +25,27 @@ logger.addHandler(handler)
 def configure_routes(app, dp, bot):
     
         @app.route("/validate-init", methods=["POST"])
-    async def validate_init():
-        try:
-            data = request.form
+        async def validate_init():
+            try:
+                data = request.form
 
-            # Дождитесь выполнения асинхронной функции HMAC_SHA256
-            secret_key = await HMAC_SHA256("WebAppData", BOT_TOKEN)
-            
-            data_check_string = await getCheckString(data)
-            hash_val = hashlib.sha256(secret_key.encode() + data_check_string.encode()).hexdigest()
+                # Дождитесь выполнения асинхронной функции HMAC_SHA256
+                secret_key = await HMAC_SHA256("WebAppData", BOT_TOKEN)
+                
+                data_check_string = await getCheckString(data)
+                hash_val = hashlib.sha256(secret_key.encode() + data_check_string.encode()).hexdigest()
 
-            if hash_val == data.get("hash"):
-                # Валидация успешна
-                logger.debug("Validation successful: %s", data)
-                return jsonify(dict(data))
-            else:
-                # Валидация неудачна
-                logger.warning("Validation failed: %s", data)
-                return jsonify({}), 401
-        except Exception as e:
-            logger.error('An error occurred: %s', str(e))
-            return jsonify({'error': str(e)}), 500
+                if hash_val == data.get("hash"):
+                    # Валидация успешна
+                    logger.debug("Validation successful: %s", data)
+                    return jsonify(dict(data))
+                else:
+                    # Валидация неудачна
+                    logger.warning("Validation failed: %s", data)
+                    return jsonify({}), 401
+            except Exception as e:
+                logger.error('An error occurred: %s', str(e))
+                return jsonify({'error': str(e)}), 500
 
 
         async def on_startup(dp):
