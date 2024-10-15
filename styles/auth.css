@@ -76,6 +76,7 @@ body {
     width: 100%;
     border: 2px solid var(--tg-theme-button-color);
     border-radius: 20px;
+    color: var(--tg-theme-text-color);
     box-sizing: border-box;
     outline-color: var(--tg-theme-bg-color);
     z-index: 6;
