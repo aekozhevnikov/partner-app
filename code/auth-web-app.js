@@ -130,31 +130,23 @@ async function getValues() {
 const { manager_name, phone, email } = data;
 
 if (id && username && manager_name && phone && email) {
-  
   tg.MainButton.show();
 
-  const values = await getValues();
+  getValues().then(async (values) => {
+    if (values) {
+      tg.onEvent('mainButtonClicked', async (event) => {
+        tg.mainButton.showProgress({ leaveActive: true });
 
-  if (values) {
-
-    tg.onEvent('mainButtonClicked', async (event) => {
-      tg.mainButton.showProgress({ leaveActive: true });
-
-      try {
-
-        const response = await fetch(`/savedata?partner=${partner}&user_id=${id}&username=${username}&name=${manager_name}&phone=${phone}&email=${email}&groups=${values}`);
-        const { success } = await response.json();
-
-        if (success) {
-          tg.showPopUp({ message: 'Регистрация прошла успешно' });
+        try {
+          const response = await fetch(`/savedata?partner=${partner}&user_id=${id}&username=${username}&name=${manager_name}&phone=${phone}&email=${email}&groups=${values}`);
+          const { success } = await response.json();
+          if (success) {
+            tg.showPopUp({ message: 'Регистрация прошла успешно' });
+          }
+        } catch (error) {
+          tg.showPopUp({ title: 'Error', message: error });
         }
-
-      } catch (error) {
-
-        tg.showPopUp({ ttite: 'Error', message: error });
-      }
-
-    });
-  }
-
+      });
+    }
+  });
 }
