@@ -86,7 +86,7 @@ def configure_routes(app, dp, bot):
                 is_subscribed = asyncio.run(subscription(bot))
                 is_authorized = asyncio.run(auth(user_id, partner))
                 
-                loop.close()
+                # loop.close()
                 return jsonify(is_subscribed=is_subscribed, is_authorized=is_authorized)
             except Exception as e:
                 logger.error(f"An error occurred in check_subscription_and_authorization: {e}")
@@ -101,7 +101,7 @@ def configure_routes(app, dp, bot):
                 logger.debug("Data successfully recived from mini-app: {values_list}")
                 success = asyncio.run(save(arr=values_list))
                 
-                loop.close()
+                # loop.close()
                 return jsonify(success=success)
             except Exception as e:
                 logger.error(f"An error occurred in save_data: {e}")
