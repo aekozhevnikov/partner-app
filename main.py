@@ -40,6 +40,7 @@ async def start_bot():
         await dp.storage.wait_closed()
 
 if __name__ == '__main__':
+    app.run(host='0.0.0.0', debug=True)
     loop = asyncio.get_event_loop()
     try:
         loop.run_until_complete(start_bot())
@@ -48,6 +49,4 @@ if __name__ == '__main__':
         pass
     finally:
         loop.close()
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True)
+    
