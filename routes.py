@@ -34,12 +34,14 @@ def configure_routes(app, dp, bot):
                 secret_key = asyncio.run(HMAC_SHA256("WebAppData", BOT_TOKEN))
                 data_check_string = asyncio.run(getCheckString(decoded_data))
                 
-                logger.debug(data_check_string)
-                logger.debug(decoded_data.get("hash"))
+                # logger.debug(data_check_string)
+                # logger.debug(decoded_data.get("hash"))
 
-                hash_val = hashlib.sha256(secret_key + data_check_string.encode()).hexdigest()
+                hash_object = hashlib.sha256(secret_key.encode())
+                hash_object.update(data_check_string.encode())
+                _hash = hash_object.hexdigest()
 
-                if hash_val == decoded_data.get("hash"):
+                if _hash == decoded_data.get("hash"):
                     # Валидация успешна
                     logger.debug("Validation successful: %s", decoded_data)
                     return jsonify(dict(decoded_data))
