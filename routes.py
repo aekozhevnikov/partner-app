@@ -36,7 +36,6 @@ def configure_routes(app, dp, bot):
                 
                 logger.debug(data_check_string)
 
-                # Преобразуйте secret_key в шестнадцатеричное представление без использования encode()
                 hash_val = hashlib.sha256(secret_key + data_check_string.encode()).hexdigest()
 
                 if hash_val == decoded_data.get("hash"):
