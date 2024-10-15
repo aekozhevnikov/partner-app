@@ -123,22 +123,22 @@ async function getValues() {
     buttonValues.push(buttonValue);
   });
 
-  buttonValues = buttonValues.join(', ');
-  return buttonValues;
-}
+  const { manager_name, phone, email } = fields;
 
-const { manager_name, phone, email } = data;
+  buttonValues = buttonValues.join(', ');
+  return { buttonValues, manager_name, phone, email }
+}
 
 if (id && username && manager_name && phone && email) {
   tg.MainButton.show();
 
-  getValues().then(async (values) => {
-    if (values) {
+  getValues().then(async ({ buttonValues, manager_name, phone, email }) => {
+    if (buttonValues) {
       tg.onEvent('mainButtonClicked', async (event) => {
         tg.mainButton.showProgress({ leaveActive: true });
 
         try {
-          const response = await fetch(`/savedata?partner=${partner}&user_id=${id}&username=${username}&name=${manager_name}&phone=${phone}&email=${email}&groups=${values}`);
+          const response = await fetch(`/savedata?partner=${partner}&user_id=${id}&username=${username}&name=${manager_name}&phone=${phone}&email=${email}&groups=${buttonValues}`);
           const { success } = await response.json();
           if (success) {
             tg.showPopUp({ message: 'Регистрация прошла успешно' });
