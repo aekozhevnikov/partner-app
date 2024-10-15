@@ -7,15 +7,15 @@ const partner = urlParams.get('partner');
 
 tg.BackButton.show();
 tg.setBottomBarColor("bottom_bar_bg_color");
-const phone_number = tg.requestContact(async (shared) => {
+const phone_number = tg.requestContact(async (shared, callback) => {
   if (shared) {
     // const phoneNumber = Telegram.newContact
     console.log(callback);
     if (callback) {
-      callback();
+      // callback();
     }
   }
-}, callback);
+});
 
 console.log(phone_number);
 
