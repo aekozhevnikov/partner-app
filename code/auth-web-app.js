@@ -5,21 +5,12 @@ const username = urlParams.get('user');
 const id = urlParams.get('id');
 const partner = urlParams.get('partner');
 
-const {
-  bg_color,
-  text_color,
-  hint_color,
-  button_color,
-  button_text_color,
-  secondary_bg_color,
-  bottom_bar_bg_color
-} = tg.themeParams;
-
 tg.BackButton.show();
 tg.setBottomBarColor("bottom_bar_bg_color");
 
 tg.onEvent('backButtonClicked', (event) => {
   window.location.href = '/';
+  tg.MainButton.hide();
 });
 
 async function fetchData() {
@@ -114,7 +105,7 @@ multiselect_block.forEach(parent => {
   });
 });
 
-async function getValues() {
+function getValues() {
 
   const fields = {
     manager_name: '#manager-name',
@@ -142,23 +133,25 @@ async function getValues() {
 
 if (id && username) {
   tg.MainButton.show();
+  tg.MainButton.setParams({ has_shine_effect: true });
 
-  getValues().then(async ({ buttonValues, manager_name, phone, email }) => {
+  tg.onEvent('mainButtonClicked', async (event) => {
+    tg.mainButton.showProgress({ leaveActive: true });
+
+    const { buttonValues, manager_name, phone, email } = getValues();
     if (buttonValues && manager_name && phone && email) {
-      tg.MainButton.setParams({ has_shine_effect: true });
-      tg.onEvent('mainButtonClicked', async (event) => {
-        tg.mainButton.showProgress({ leaveActive: true });
 
-        try {
-          const response = await fetch(`/savedata?partner=${partner}&user_id=${id}&username=${username}&name=${manager_name}&phone=${phone}&email=${email}&groups=${buttonValues}`);
-          const { success } = await response.json();
-          if (success) {
-            tg.showPopUp({ message: 'Регистрация прошла успешно' });
-          }
-        } catch (error) {
-          tg.showPopUp({ title: 'Error', message: error });
+      try {
+        const response = await fetch(`/savedata?partner=${partner}&user_id=${id}&username=${username}&name=${manager_name}&phone=${phone}&email=${email}&groups=${buttonValues}`);
+        const { success } = await response.json();
+        if (success) {
+          tg.showPopUp({ message: 'Регистрация прошла успешно' });
         }
-      });
+      } catch (error) {
+        tg.showPopUp({ title: 'Error', message: error });
+      }
+    } else {
+      tg.showPopUp({ message: 'Вначале заполните все данные' });
     }
   });
 }
