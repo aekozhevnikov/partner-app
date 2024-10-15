@@ -38,7 +38,7 @@ async def auth(user_id: str, partner: str) -> bool:
         response = await loop.run_in_executor(None, request.execute)
         values = response.get('values', [])
         
-        logging.debug(values)
+        print(values)
 
         for row in values:
             if row and row[1] == partner and row[2] == user_id and row[3] and row[4] and row[5] and row[6]:
