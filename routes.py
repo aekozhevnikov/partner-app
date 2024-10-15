@@ -29,7 +29,7 @@ def configure_routes(app, dp, bot):
         @app.route("/validate-init", methods=["GET"])
         async def validate_init():
             try:
-                data = request.args
+                data = list(request.args.values())
 
                 decoded_data = {value: unquote_plus(data[value]) for value in range(len(data))}
                 logger.debug(decoded_data)
