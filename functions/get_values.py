@@ -24,8 +24,6 @@ async def get_values() -> list:
         
         loop = asyncio.get_event_loop()
         
-        logger.debug(GROUPSSHEETNAME)
-        
         request = sheet.values().get(spreadsheetId=DB, range=GROUPSSHEETNAME)
         response = await loop.run_in_executor(None, request.execute)
         values = response.get('values', [])
