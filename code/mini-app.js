@@ -18,30 +18,27 @@ const checkout = {
 };
 
 const checkSubscriptionAndAuthorization = async () => {
-    if (!isCheckPerformed) { // Проверка, чтобы выполнить только один раз
-        try {
-            const response = await fetch(`/check?partner=${start_param}&user_id=${id}`);
-            const { is_subscribed, is_authorized } = await response.json();
+    try {
+        const response = await fetch(`/check?partner=${start_param}&user_id=${id}`);
+        const { is_subscribed, is_authorized } = await response.json();
 
-            const checks = {
-                a: is_authorized && !is_subscribed,
-                as: !is_authorized && !is_subscribed,
-                s: !is_authorized && is_subscribed
-            };
+        const checks = {
+            a: is_authorized && !is_subscribed,
+            as: !is_authorized && !is_subscribed,
+            s: !is_authorized && is_subscribed
+        };
 
-            for (const key in checks) {
-                if (checks[key]) {
-                    if (checkout[key]) {
-                        checkout[key]();
-                    }
-                    window.location.href = '/';
-                    break;
+        for (const key in checks) {
+            if (checks[key]) {
+                if (checkout[key]) {
+                    checkout[key]();
                 }
+                window.location.href = '/';
+                break;
             }
-        } catch (error) {
-            console.error('Error:', error);
         }
-
+    } catch (error) {
+        console.error('Error:', error);
     }
 };
 
