@@ -30,14 +30,11 @@ def configure_routes(app, dp, bot):
         async def validate_init():
             try:
                 decoded_data = {key: unquote_plus(value) for key, value in request.args.items()}
-                logger.debug(decoded_data)
 
-                # Дождитесь выполнения асинхронной функции HMAC_SHA256
                 secret_key = await HMAC_SHA256("WebAppData", BOT_TOKEN)
-
                 data_check_string = await getCheckString(decoded_data)
                 
-                logger.debug(data_check_string)
+                logging.debug(data_check_string.encode())
 
                 # Преобразуйте secret_key в шестнадцатеричное представление без использования encode()
                 hash_val = hashlib.sha256(secret_key + data_check_string.encode()).hexdigest()
