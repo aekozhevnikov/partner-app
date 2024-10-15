@@ -9,10 +9,11 @@ body {
     width: fit-content;
     display: flex;
     flex-direction: column;
+    height: 400px;
     margin: 0 auto;
     padding: 10px 20px;
     border-radius: 20px;
-    background-color: var(--tg-theme-bg-color, brightness(1.1));
+    background-color: var(--tg-theme-bg-color);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     overflow: hidden;
 }
@@ -20,6 +21,7 @@ body {
 .button {
     color: var(--tg-theme-button-text-color);
     background: var(--tg-theme-button-color);
+    border-radius: 20px;
 }
 
 @media only screen and (min-width: 768px) {
@@ -38,7 +40,7 @@ body {
     border-radius: 20px;
     font-size: 14px;
     color: var(--tg-theme-button-text-color);
-    margin-bottom: 50px;
+    margin-bottom: 20px;
     margin-top: 20px;
 
     outline-color: var(--tg-theme-bg-color);
