@@ -37,7 +37,7 @@ def configure_routes(app, dp, bot):
                 # logger.debug(data_check_string)
                 # logger.debug(decoded_data.get("hash"))
 
-                hash_object = hashlib.sha256(secret_key.digest())
+                hash_object = hashlib.sha256(secret_key.encode())
                 hash_object.update(data_check_string.encode())
                 _hash = hash_object.hexdigest()
 
