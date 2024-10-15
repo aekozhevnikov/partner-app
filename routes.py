@@ -27,12 +27,12 @@ logger.addHandler(handler)
 def configure_routes(app, dp, bot):
     
         @app.route("/validate-init", methods=["GET"])
-        async def validate_init():
+        def validate_init():
             try:
                 decoded_data = {key: unquote_plus(value) for key, value in request.args.items()}
 
-                secret_key = await HMAC_SHA256("WebAppData", BOT_TOKEN)
-                data_check_string = await getCheckString(decoded_data)
+                secret_key = asyncio.run(HMAC_SHA256("WebAppData", BOT_TOKEN))
+                data_check_string = asyncio.rungetCheckString(decoded_data))
 
                 # Преобразуйте secret_key в шестнадцатеричное представление без использования encode()
                 hash_val = hashlib.sha256(secret_key + data_check_string.encode()).hexdigest()
