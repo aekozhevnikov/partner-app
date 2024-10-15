@@ -17,7 +17,7 @@ logger.addHandler(handler)
 
 async def subscription(bot: Bot) -> bool:
     try:
-    
+        
         member = await bot.get_chat_member(chat_id=KUPISALONID, user_id=bot.id)
         return member.is_chat_member()
     except Exception as e:
@@ -32,11 +32,11 @@ async def auth(user_id: str, partner: str) -> bool:
         service = build('sheets', 'v4', credentials=credentials, cache_discovery=False)
         sheet = service.spreadsheets()
 
-        loop = asyncio.get_event_loop()
+        # loop = asyncio.get_event_loop()
 
-        request = sheet.values().get(spreadsheetId=SPREADSHEETID, range=SHEETNAME)
-        response = await loop.run_in_executor(None, request.execute)
-        values = response.get('values', [])
+        request = await sheet.values().get(spreadsheetId=SPREADSHEETID, range=SHEETNAME)
+        # response = await loop.run_in_executor(None, request.execute)
+        values = request.get('values', [])
 
         for row in values:
             if row and row[1] == partner and row[2] == user_id and row[3] and row[4] and row[5] and row[6]:
