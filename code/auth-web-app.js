@@ -24,20 +24,15 @@ async function fetchData() {
 
     const text = await response.text();
 
-    try {
-      const data = JSON.parse(text);
-      const flatValues = data.flat();
+    const data = JSON.parse(text);
+    const flatValues = data.flat();
 
-      flatValues.forEach(option => {
-        const optionElement = document.createElement('option');
-        optionElement.value = option;
-        optionElement.text = option;
-        selectElement.appendChild(optionElement);
-      });
-
-    } catch (error) {
-      console.error('Error parsing JSON data:', error.message); // Вывод текста ошибки в консоль
-    }
+    flatValues.forEach(option => {
+      const optionElement = document.createElement('option');
+      optionElement.value = option;
+      optionElement.text = option;
+      selectElement.appendChild(optionElement);
+    });
 
   } catch (error) {
     console.error('Error fetching data:', error.message); // Вывод текста ошибки в консоль
@@ -59,25 +54,6 @@ function formatPhoneNumber(input) {
     input.value = input.value.substring(0, 4) + input.value.substring(4).replace(/[^0-9]/g, '').slice(0, 13);
   } else {
     input.value = input.value.replace(/[^0-9]/g, '').slice(0, 10);
-  }
-}
-
-function checkTelegramAccount(input) {
-  if (input.value === '') {
-    input.setCustomValidity("");
-  } else {
-    if (!input.value.startsWith('@')) {
-      input.value = '@' + input.value;
-    }
-
-    let value = input.value;
-    let pattern = /^@[A-Za-z0-9_]{1,}$/;
-
-    if (!value.match(pattern)) {
-      input.setCustomValidity("Неверный формат учетной записи Telegram. Используйте только буквы a-z, цифры 0-9 и _.");
-    } else {
-      input.setCustomValidity("");
-    }
   }
 }
 
@@ -127,47 +103,58 @@ multiselect_block.forEach(parent => {
   });
 });
 
-const fields = {
-  name: '#manager-name',
-  phone: '#manager-phone',
-  email: '#manager-email',
-};
+async function getValues() {
 
-const data = Object.fromEntries(
-  Object.entries(fields).map(([key, selector]) => [key, document.querySelector(selector).value])
-);
+  const fields = {
+    manager_name: '#manager-name',
+    phone: '#manager-phone',
+    email: '#manager-email',
+  };
 
-const buttons = document.querySelectorAll('.btn_multiselect');
-let buttonValues = [];
+  const data = Object.fromEntries(
+    Object.entries(fields).map(([key, selector]) => [key, document.querySelector(selector).value])
+  );
 
-buttons.forEach(button => {
-  const buttonValue = button.textContent.trim();
-  buttonValues.push(buttonValue);
-});
+  const buttons = document.querySelectorAll('.btn_multiselect');
+  let buttonValues = [];
 
-buttonValues = buttonValues.join(', ');
-const { name, phone, email } = data;
+  buttons.forEach(button => {
+    const buttonValue = button.textContent.trim();
+    buttonValues.push(buttonValue);
+  });
 
-if (id && username && name && phone && email && buttonValues) {
+  buttonValues = buttonValues.join(', ');
+  return buttonValues;
+}
+
+const { manager_name, phone, email } = data;
+
+if (id && username && manager_name && phone && email) {
+  
   tg.MainButton.show();
 
-  tg.onEvent('mainButtonClicked', async (event) => {
-    tg.mainButton.showProgress({ leaveActive: true });
+  const values = await getValues();
 
-    try {
+  if (values) {
 
-      const response = await fetch(`/savedata?partner=${partner}&user_id=${id}&username=${username}&name=${name}&phone=${phone}&email=${email}&groups=${buttonValues}`);
-      const { success } = await response.json();
+    tg.onEvent('mainButtonClicked', async (event) => {
+      tg.mainButton.showProgress({ leaveActive: true });
 
-      if (success) {
-        tg.showPopUp({ message: 'Регистрация прошла успешно' });
+      try {
+
+        const response = await fetch(`/savedata?partner=${partner}&user_id=${id}&username=${username}&name=${manager_name}&phone=${phone}&email=${email}&groups=${values}`);
+        const { success } = await response.json();
+
+        if (success) {
+          tg.showPopUp({ message: 'Регистрация прошла успешно' });
+        }
+
+      } catch (error) {
+
+        tg.showPopUp({ ttite: 'Error', message: error });
       }
 
-    } catch (error) {
-
-      tg.showPopUp({ ttite: 'Error', message: error });
-    }
-
-  });
+    });
+  }
 
 }
