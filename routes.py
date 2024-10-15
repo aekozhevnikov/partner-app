@@ -33,6 +33,8 @@ def configure_routes(app, dp, bot):
 
                 secret_key = asyncio.run(HMAC_SHA256("WebAppData", BOT_TOKEN))
                 data_check_string = asyncio.run(getCheckString(decoded_data))
+                
+                logger.debug(data_check_string)
 
                 # Преобразуйте secret_key в шестнадцатеричное представление без использования encode()
                 hash_val = hashlib.sha256(secret_key + data_check_string.encode()).hexdigest()
@@ -98,7 +100,7 @@ def configure_routes(app, dp, bot):
             
         @app.route('/savedata', methods=['GET'])
         def save_data():
-            loop = asyncio.get_event_loop()
+            # loop = asyncio.get_event_loop()
             
             try:
                 values_list = list(request.args.values())
@@ -113,10 +115,10 @@ def configure_routes(app, dp, bot):
             
         @app.route('/getdata', methods=['GET'])
         def get_data():
-            loop = asyncio.new_event_loop()
+            # loop = asyncio.new_event_loop()
 
             try:
-                values = loop.run_until_complete(get_values())
+                values = asyncio.run(get_values())
                 
                 # loop.close()
                 return jsonify(values)
