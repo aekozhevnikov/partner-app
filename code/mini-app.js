@@ -43,10 +43,12 @@ const checkSubscriptionAndAuthorization = async () => {
 }
 
 window.addEventListener("load", async function () {
+    console.log(tg.initData);
 	const data = await fetch(
 		"/validate-init",
 		{ method: "POST", body: tg.initData },
-	).then(res => console.log(res.json()));
+	).then(res => res.json());
+    console.log(data);
 });
 
 window.addEventListener('load', checkSubscriptionAndAuthorization);
