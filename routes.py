@@ -1,5 +1,6 @@
 from logging.handlers import RotatingFileHandler
 from flask import send_file, jsonify, request
+from urllib.parse import unquote_plus
 
 import os
 import asyncio
@@ -28,23 +29,28 @@ def configure_routes(app, dp, bot):
         @app.route("/validate-init", methods=["POST"])
         async def validate_init():
             try:
-                data = request.form
-                logger.debug(data)
+                data = request.form.to_dict(flat=False)  # Преобразование данных в словарь
+
+                # Декодирование данных (при необходимости)
+                decoded_data = {key: unquote_plus(value) for key, value in data.items()}
+
+                logger.debug(decoded_data)
+
                 # Дождитесь выполнения асинхронной функции HMAC_SHA256
                 secret_key = await HMAC_SHA256("WebAppData", BOT_TOKEN)
 
-                data_check_string = await getCheckString(data)
-                
+                data_check_string = await getCheckString(decoded_data)
+
                 # Преобразуйте secret_key в шестнадцатеричное представление без использования encode()
                 hash_val = hashlib.sha256(secret_key + data_check_string.encode()).hexdigest()
 
-                if hash_val == data.get("hash"):
+                if hash_val == decoded_data.get("hash"):
                     # Валидация успешна
-                    logger.debug("Validation successful: %s", data)
-                    return jsonify(dict(data))
+                    logger.debug("Validation successful: %s", decoded_data)
+                    return jsonify(dict(decoded_data))
                 else:
                     # Валидация неудачна
-                    logger.warning("Validation failed: %s", data)
+                    logger.warning("Validation failed: %s", decoded_data)
                     return jsonify({}), 401
             except Exception as e:
                 logger.error('An error occurred: %s', str(e))
