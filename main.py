@@ -28,10 +28,11 @@ logger.addHandler(file_handler)
 route_conf = configure_routes(app, dp, bot)
         
 if __name__ == '__main__':
-    loop = asyncio.get_event_loop()
-    loop.create_task(route_conf.on_startup(dp))  # Вызов установки Webhook асинхронно
-    loop.create_task(dp.start_polling())  # Запуск Polling асинхронно
-    loop.run_forever()  
+    async def main() # loop = asyncio.get_event_loop()
+        await route_conf.on_startup(dp)  # Вызов установки Webhook асинхронно
+        await dp.start_polling()  # Запуск Polling асинхронно   
+        
+    asyncio.run(main())    
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
