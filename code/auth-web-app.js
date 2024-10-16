@@ -10,6 +10,7 @@ tg.setBottomBarColor("bottom_bar_bg_color");
 
 const { phone_number, auth_date } = tg.requestContact(async (shared, callback) => {
   if (shared && callback) {
+    console.log(callback);
     const { responseUnsafe: { contact: { phone_number }, auth_date } } = callback;
     return { phone_number, auth_date };
   }
