@@ -14,19 +14,31 @@ tg.enableClosingConfirmation();
 
 const { user: { username, id }, start_param } = tg.initDataUnsafe;
 
+const setCheckmark = s => {
+    s.style.backgroundImage = "url('checkmark.png')";
+    s.style.backgroundPosition = "right center";
+    s.style.backgroundRepeat = "no-repeat";
+};
+
 const checkout = {
     as: () => {
-        [auth, subscribe].forEach(s => s.disabled = true);
+        [auth, subscribe].forEach(s => {
+            s.disabled = true;
+            setCheckmark(s);
+        });
         auth_block.style.pointerEvents = "none";
         auth_block.style.opacity = "0.5";
+
     },
     a: () => {
         auth_text.style.opacity = "0.5";
         [auth, calculate].forEach(s => s.disabled = true);
+        setCheckmark(auth);
     },
     s: () => {
         subscribe_text.style.opacity = "0.5";
         [subscribe, calculate].forEach(s => s.disabled = true);
+        setCheckmark(subscribe);
     }
 };
 
