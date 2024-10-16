@@ -27,11 +27,13 @@ fill_tg.addEventListener('click', async () => {
   await tg.requestContact(async (shared, callback) => {
     if (shared && callback) {
       console.log(callback);
-      const { responseUnsafe: { contact: { phone_number, last_name, first_name }, auth_date } } = callback;
-      n.value = `${first_name} ${last_name}`;
-      ph.value = phone_number;
+      // const { responseUnsafe: { contact: { phone_number, last_name, first_name } } } = callback;
+      const contact = callback.responseUnsafe.contact;
+      console.log(contact.phone_umber);
+      console.log(contact.last_name)
+      n.value = `${contact.first_name} ${contact.last_name}`;
+      ph.value = contact.phone_number;
       setCheckmark(fill_tg);
-      // return { phone_number, auth_date, last_name, first_name };
     }
   });
 });
