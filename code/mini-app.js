@@ -31,12 +31,12 @@ const checkout = {
     },
     a: () => {
         auth_text.style.opacity = "0.5";
-        [auth, calculate].forEach(s => s.disabled = true);
+        [auth, calculate].forEach(s => s.style.pointerEvents = "none");
         auth.innerHTML = auth.innerText + "  &#9989"
     },
     s: () => {
         subscribe_text.style.opacity = "0.5";
-        [subscribe, calculate].forEach(s => s.disabled = true);
+        [subscribe, calculate].forEach(s => s.style.pointerEvents = "none");
         subscribe.innerHTML = subscribe.innerText + "  &#9989"
     }
 };
