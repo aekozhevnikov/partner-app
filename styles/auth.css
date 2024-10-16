@@ -9,6 +9,7 @@ body {
     width: fit-content;
     display: flex;
     flex-direction: column;
+    text-align: center;
     height: 700px;
     margin: 0 auto;
     padding: 10px 20px;
@@ -23,7 +24,8 @@ p {
     color: var(--tg-theme-hint-color);
 }
 
-.button {
+.button,
+.fill-tg {
     color: var(--tg-theme-button-text-color);
     background: var(--tg-theme-button-color);
     border-radius: 20px;
