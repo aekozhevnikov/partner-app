@@ -76,7 +76,7 @@ def configure_routes(app, dp, bot):
                 user_id = request.args.get('user_id')
                 partner = request.args.get('partner')
 
-                oop = asyncio.get_event_loop()
+                loop = asyncio.get_event_loop()
                 tasks = [
                     loop.create_task(subscription(bot)),
                     loop.create_task(auth(user_id, partner))
