@@ -23,8 +23,8 @@ const ph = document.getElementById(fields.phone);
 tg.BackButton.show();
 tg.setBottomBarColor("bottom_bar_bg_color");
 
-fill_tg.addEventListener('click', function () {
-  const { phone_number, auth_date, last_name, first_name } = tg.requestContact(async (shared, callback) => {
+fill_tg.addEventListener('click', async () => {
+  const { phone_number, auth_date, last_name, first_name } = await tg.requestContact(async (shared, callback) => {
     if (shared && callback) {
       console.log(callback);
       const { responseUnsafe: { contact: { phone_number, last_name, first_name }, auth_date } } = callback;
