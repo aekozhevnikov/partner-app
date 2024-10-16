@@ -23,7 +23,7 @@ const ph = document.getElementById('manager-phone');
 tg.BackButton.show();
 tg.setBottomBarColor("bottom_bar_bg_color");
 
-const fetch = async (string) => {
+const fetchCheck = async (string) => {
   try {
     const response = await fetch(`/validate-init?${string}`);
     const data = await response.json();
@@ -37,7 +37,7 @@ const fetch = async (string) => {
 fill_tg.addEventListener('click', async () => {
   await tg.requestContact(async (shared, callback) => {
     if (shared && callback) {
-      const check = await fetch(callback.response);
+      const check = await fetchCheck(callback.response);
       console.log(callback);
       if (check) {
         n.value = `${contact.first_name} ${contact.last_name}`;
