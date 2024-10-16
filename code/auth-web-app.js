@@ -8,12 +8,12 @@ const partner = urlParams.get('partner');
 tg.BackButton.show();
 tg.setBottomBarColor("bottom_bar_bg_color");
 
-// const { phone_number, auth_date } = tg.requestContact(async (shared, callback) => {
-//   if (shared && callback) {
-//     const { responseUnsafe: { contact: { phone_number }, auth_date } } = callback;
-//     return { phone_number, auth_date };
-//   }
-// });
+const { phone_number, auth_date } = tg.requestContact(async (shared, callback) => {
+  if (shared && callback) {
+    const { responseUnsafe: { contact: { phone_number }, auth_date } } = callback;
+    return { phone_number, auth_date };
+  }
+});
 
 tg.onEvent('backButtonClicked', (event) => {
   window.location.href = '/';
