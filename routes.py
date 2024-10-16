@@ -1,7 +1,6 @@
 from logging.handlers import RotatingFileHandler
 from flask import send_file, jsonify, request
 from urllib.parse import unquote_plus
-from aiohttp import ClientSession
 
 import os
 import asyncio
@@ -77,9 +76,13 @@ def configure_routes(app, dp, bot):
                 user_id = request.args.get('user_id')
                 partner = request.args.get('partner')
 
-                async with ClientSession() as session:
-                    is_subscribed = await subscription(bot)
-                    is_authorized = await auth(user_id, partner)
+                loop = asyncio.new_event_loop()
+                asyncio.set_event_loop(loop)
+
+                is_subscribed = loop.run_until_complete(subscription(bot))
+                is_authorized = loop.run_until_complete(auth(user_id, partner))
+
+                loop.close()
 
                 return jsonify(is_subscribed=is_subscribed, is_authorized=is_authorized)
             except Exception as e:
