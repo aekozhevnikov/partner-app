@@ -19,7 +19,6 @@ async def subscription(bot: Bot) -> bool:
     try:
         
         member = await bot.get_chat_member(chat_id=KUPISALONID, user_id=bot.id)
-        logging.debug(member)
         return member.is_chat_member()
     except Exception as e:
         logger.error(f"An error occurred in check_subscription: {e}")
@@ -32,10 +31,10 @@ async def auth(user_id: str, partner: str) -> bool:
         service = build('sheets', 'v4', credentials=credentials, cache_discovery=False)
         sheet = service.spreadsheets()
 
-        loop = asyncio.get_event_loop()
+        # loop = asyncio.get_event_loop()
 
         request = sheet.values().get(spreadsheetId=SPREADSHEETID, range=SHEETNAME)
-        response = await loop.run_in_executor(None, request.execute)
+        response = await request.execute()
         values = response.get('values', [])
 
         for row in values:
