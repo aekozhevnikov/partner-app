@@ -6,15 +6,28 @@ tg.ready();
 const subscribe = document.getElementById("subscribe-button");
 const auth = document.getElementById("auth-button");
 const calculate = document.getElementById("calculate-button");
+const auth_text = document.getElementById("auth_text");
+const subscribe_text = document.getElementById("subscribe_text");
+const auth_block = document.querySelector(".auth-block")
 
 tg.enableClosingConfirmation();
 
 const { user: { username, id }, start_param } = tg.initDataUnsafe;
 
 const checkout = {
-    as: () => { [subscribe, auth].forEach(s => s.style.display = 'none'); },
-    a: () => { [auth, calculate].forEach(s => s.style.display = 'none'); },
-    s: () => { [subscribe, calculate].forEach(s => s.style.display = 'none'); }
+    as: () => {
+        [auth, subscribe].forEach(s => s.disabled = true);
+        auth_block.style.pointerEvents = "none";
+        auth_block.style.opacity = "0.5";
+    },
+    a: () => {
+        auth_text.style.opacity = "0.5";
+        [auth, calculate].forEach(s => s.disabled = true);
+    },
+    s: () => {
+        subscribe_text.style.opacity = "0.5";
+        [subscribe, calculate].forEach(s => s.disabled = true);
+    }
 };
 
 const checkSubscriptionAndAuthorization = async () => {
