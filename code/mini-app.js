@@ -32,12 +32,12 @@ const checkout = {
     a: () => {
         auth_text.style.opacity = "0.5";
         [auth, calculate].forEach(s => s.disabled = true);
-        auth.innerHTML = s.innerText + "  &#9989"
+        auth.innerHTML = auth.innerText + "  &#9989"
     },
     s: () => {
         subscribe_text.style.opacity = "0.5";
         [subscribe, calculate].forEach(s => s.disabled = true);
-        subscribe.innerHTML = s.innerText + "  &#9989"
+        subscribe.innerHTML = subscribe.innerText + "  &#9989"
     }
 };
 
