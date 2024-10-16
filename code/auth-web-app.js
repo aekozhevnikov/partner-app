@@ -23,7 +23,7 @@ const ph = document.getElementById('manager-phone');
 tg.BackButton.show();
 tg.setBottomBarColor("bottom_bar_bg_color");
 
-const fecth = async (string) => {
+const fetch = async (string) => {
   try {
     const response = await fetch(`/validate-init?${string}`);
     const data = await response.json();
