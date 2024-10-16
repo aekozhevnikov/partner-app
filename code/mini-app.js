@@ -50,7 +50,7 @@ const checkSubscriptionAndAuthorization = async () => {
 
         const checks = {
             a: is_authorized && (!is_subscribed || is_subscribed == undefined),
-            as: !is_authorized && !is_subscribed,
+            as: is_authorized && is_subscribed,
             s: (!is_authorized || is_authorized == undefined) && is_subscribed
         };
 
