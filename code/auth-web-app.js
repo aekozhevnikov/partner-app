@@ -23,17 +23,29 @@ const ph = document.getElementById('manager-phone');
 tg.BackButton.show();
 tg.setBottomBarColor("bottom_bar_bg_color");
 
+const fetchData = async (string) => {
+  try {
+    const response = await fetch(`/validate-init?${string}`);
+    const data = await response.json();
+    console.log(data);
+    return data ? true : false;
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
+
 fill_tg.addEventListener('click', async () => {
   await tg.requestContact(async (shared, callback) => {
     if (shared && callback) {
+      const check = await fetch(callback.response);
       console.log(callback);
-      // const { responseUnsafe: { contact: { phone_number, last_name, first_name } } } = callback;
-      const contact = callback.responseUnsafe.contact;
-      console.log(contact.phone_number);
-      console.log(contact.last_name)
-      n.value = `${contact.first_name} ${contact.last_name}`;
-      ph.value = contact.phone_number;
-      setCheckmark(fill_tg);
+      if (check) {
+        n.value = `${contact.first_name} ${contact.last_name}`;
+        ph.value = contact.phone_number;
+        setCheckmark(fill_tg);
+      } else {
+        console.error('Data is not valid');
+      }
     }
   });
 });
