@@ -18,6 +18,11 @@ body {
     overflow: hidden;
 }
 
+p {
+    margin-bottom: 20px;
+    color: var(--tg-theme-hint-color);
+}
+
 .button {
     color: var(--tg-theme-button-text-color);
     background: var(--tg-theme-button-color);

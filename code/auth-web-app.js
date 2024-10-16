@@ -5,15 +5,37 @@ const username = urlParams.get('user');
 const id = urlParams.get('id');
 const partner = urlParams.get('partner');
 
+const fields = {
+  manager_name: '#manager-name',
+  phone: '#manager-phone',
+  email: '#manager-email',
+};
+
+const setCheckmark = s => {
+  s.style.pointerEvents = "none";
+  s.style.opacity = "0.5";
+};
+
+const fill_tg = document.querySelector('.fill-tg');
+const n = document.getElementById(fields.manager_name);
+const ph = document.getElementById(fields.phone);
+
 tg.BackButton.show();
 tg.setBottomBarColor("bottom_bar_bg_color");
 
-const { phone_number, auth_date } = tg.requestContact(async (shared, callback) => {
-  if (shared && callback) {
-    console.log(callback);
-    const { responseUnsafe: { contact: { phone_number }, auth_date } } = callback;
-    return { phone_number, auth_date };
-  }
+fill_tg.addEventListener('click', function () {
+  const { phone_number, auth_date, last_name, first_name } = tg.requestContact(async (shared, callback) => {
+    if (shared && callback) {
+      console.log(callback);
+      const { responseUnsafe: { contact: { phone_number, last_name, first_name }, auth_date } } = callback;
+      return { phone_number, auth_date, last_name, first_name };
+    }
+  });
+
+  n.value = `${first_name} ${last_name}`;
+  ph.value = phone_number;
+  setCheckmark(fill_tg);
+
 });
 
 tg.onEvent('backButtonClicked', (event) => {
@@ -114,12 +136,6 @@ multiselect_block.forEach(parent => {
 });
 
 function getValues() {
-
-  const fields = {
-    manager_name: '#manager-name',
-    phone: '#manager-phone',
-    email: '#manager-email',
-  };
 
   const data = Object.fromEntries(
     Object.entries(fields).map(([key, selector]) => [key, document.querySelector(selector).value])
