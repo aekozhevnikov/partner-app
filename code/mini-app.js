@@ -24,11 +24,10 @@ const checkout = {
     as: () => {
         [auth, subscribe].forEach(s => {
             s.disabled = true;
-            s.innerHTML = s.innerText + "  &#9989"
+            s.innerHTML = s.innerText + "  &#9989";
+            s.style.pointerEvents = "none";
+            s.style.opacity = "0.5";
         });
-        auth_block.style.pointerEvents = "none";
-        auth_block.style.opacity = "0.5";
-
     },
     a: () => {
         auth_text.style.opacity = "0.5";
