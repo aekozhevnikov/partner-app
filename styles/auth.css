@@ -35,6 +35,7 @@ p {
     color: var(--tg-theme-button-text-color);
     background: var(--tg-theme-button-color);
     border-radius: 20px;
+    border: none;
 }
 
 @media only screen and (min-width: 768px) {
