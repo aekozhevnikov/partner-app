@@ -24,7 +24,7 @@ const checkout = {
     as: () => {
         [auth, subscribe].forEach(s => {
             s.disabled = true;
-            s.innerText = s.innerText + " &#10003"
+            s.innerHTML = s.innerText + " &#10003"
         });
         auth_block.style.pointerEvents = "none";
         auth_block.style.opacity = "0.5";
@@ -38,7 +38,7 @@ const checkout = {
     s: () => {
         subscribe_text.style.opacity = "0.5";
         [subscribe, calculate].forEach(s => s.disabled = true);
-        subscribe.innerText = s.innerText + " &#10003"
+        subscribe.innerHTML = s.innerText + " &#10003"
     }
 };
 
