@@ -18,7 +18,7 @@ logger.addHandler(handler)
 async def subscription(bot: Bot) -> bool:
     try:
         
-        member = await bot.get_chat_member(chat_id=KUPISALONID, user_id=bot.id)
+        member = bot.get_chat_member(chat_id=KUPISALONID, user_id=bot.id)
         return member.is_chat_member()
     except Exception as e:
         logger.error(f"An error occurred in check_subscription: {e}")
