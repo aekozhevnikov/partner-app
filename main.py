@@ -32,11 +32,9 @@ async def start_bot():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
-   # Удалите эту строку (loop = asyncio.get_event_loop())
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
 
-    # Вместо этой строки (loop.run_forever()) используйте следующий код:
     try:
         loop.run_until_complete(start_bot())
     except KeyboardInterrupt:
