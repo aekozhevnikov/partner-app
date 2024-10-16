@@ -111,6 +111,7 @@ field_multiselect button+button {
     margin-right: 5px;
     margin-bottom: 5px;
     border: none;
+    color: var(--tg-theme-button-text-color);
     background-color: var(--tg-theme-button-color);
 
     &:after {
