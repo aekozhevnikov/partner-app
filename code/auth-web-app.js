@@ -17,8 +17,8 @@ const setCheckmark = s => {
 };
 
 const fill_tg = document.querySelector('.fill-tg');
-const n = document.getElementById(fields.manager_name);
-const ph = document.getElementById(fields.phone);
+const n = document.getElementById('manager-name');
+const ph = document.getElementById('manager-phone');
 
 tg.BackButton.show();
 tg.setBottomBarColor("bottom_bar_bg_color");
