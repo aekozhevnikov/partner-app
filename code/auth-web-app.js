@@ -24,18 +24,16 @@ tg.BackButton.show();
 tg.setBottomBarColor("bottom_bar_bg_color");
 
 fill_tg.addEventListener('click', async () => {
-  const { phone_number, auth_date, last_name, first_name } = await tg.requestContact(async (shared, callback) => {
+  await tg.requestContact(async (shared, callback) => {
     if (shared && callback) {
       console.log(callback);
       const { responseUnsafe: { contact: { phone_number, last_name, first_name }, auth_date } } = callback;
-      return { phone_number, auth_date, last_name, first_name };
+      n.value = `${first_name} ${last_name}`;
+      ph.value = phone_number;
+      setCheckmark(fill_tg);
+      // return { phone_number, auth_date, last_name, first_name };
     }
   });
-
-  n.value = `${first_name} ${last_name}`;
-  ph.value = phone_number;
-  setCheckmark(fill_tg);
-
 });
 
 tg.onEvent('backButtonClicked', (event) => {
