@@ -82,7 +82,7 @@ def configure_routes(app, dp, bot):
                 is_subscribed = loop.run_until_complete(subscription(bot))
                 is_authorized = await auth(user_id, partner)
 
-                    return jsonify(is_subscribed=is_subscribed, is_authorized=is_authorized)
+                return jsonify(is_subscribed=is_subscribed, is_authorized=is_authorized)
             except Exception as e:
                 logger.error(f"An error occurred in check_subscription_and_authorization: {e}")
                 return jsonify(error=str(e)), 500
