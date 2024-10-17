@@ -33,7 +33,7 @@ async def auth(user_id: str, partner: str) -> bool:
         loop = asyncio.get_event_loop()
 
         request = sheet.values().get(spreadsheetId=SPREADSHEETID, range=SHEETNAME)
-        response = loop.run_in_executor(None, request.execute)
+        response = await loop.run_in_executor(None, request.execute)
         values = response.get('values', [])
 
         for row in values:
