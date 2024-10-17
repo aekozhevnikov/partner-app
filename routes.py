@@ -75,7 +75,7 @@ def configure_routes(app, dp, bot):
                 partner = request.args.get('partner')
                 
                 async def run_checks():
-                    is_subscribed = await subscription(bot)
+                    is_subscribed = subscription(bot)
                     is_authorized = await auth(user_id, partner)
 
                     return jsonify(is_subscribed=is_subscribed, is_authorized=is_authorized)
