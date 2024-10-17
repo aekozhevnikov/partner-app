@@ -23,7 +23,7 @@ handler = logging.StreamHandler()
 handler.setFormatter(log_formatter)
 logger.addHandler(handler)
 
-def configure_routes(app, dp, bot):
+def configure_routes(app, dp, Bot):
     
         @app.route("/validate-init", methods=["GET"])
         def validate_init():
@@ -43,7 +43,7 @@ def configure_routes(app, dp, bot):
 
         async def on_startup(dp):
             try:
-                await bot.set_webhook('') 
+                await Bot.set_webhook('') 
             except Exception as e:
                 logger.error(f"An error occurred in on_startup: {e}")
 
