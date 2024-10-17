@@ -71,7 +71,7 @@ def configure_routes(app, dp, bot):
             return send_file(AUTH)
         
         @app.route('/check', methods=['GET'])
-        async def check_subscription_and_authorization():
+        def check_subscription_and_authorization():
             try:
                 user_id = request.args.get('user_id')
                 partner = request.args.get('partner')
@@ -85,7 +85,7 @@ def configure_routes(app, dp, bot):
 
                     return jsonify(is_subscribed=is_subscribed, is_authorized=is_authorized)
 
-                result = await loop.run_until_complete(run_checks())
+                result = loop.run_until_complete(run_checks())
                 return result
             except Exception as e:
                 logger.error(f"An error occurred in check_subscription_and_authorization: {e}")
