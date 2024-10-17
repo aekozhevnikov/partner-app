@@ -6,8 +6,6 @@ import os
 import asyncio
 import logging
 
-from aiogram import Bot, Dispatcher
-
 from functions.check import subscription, auth
 from functions.save import save
 from functions.get_values import get_values
@@ -23,7 +21,7 @@ handler = logging.StreamHandler()
 handler.setFormatter(log_formatter)
 logger.addHandler(handler)
 
-def configure_routes(app, dp, Bot):
+def configure_routes(app, dp, bot):
     
         @app.route("/validate-init", methods=["GET"])
         def validate_init():
@@ -43,7 +41,7 @@ def configure_routes(app, dp, Bot):
 
         async def on_startup(dp):
             try:
-                await Bot.set_webhook('') 
+                await bot.set_webhook('') 
             except Exception as e:
                 logger.error(f"An error occurred in on_startup: {e}")
 
@@ -77,7 +75,7 @@ def configure_routes(app, dp, Bot):
                 partner = request.args.get('partner')
                 
                 async def run_checks():
-                    is_subscribed = await subscription(Bot)
+                    is_subscribed = await subscription(bot)
                     is_authorized = await auth(user_id, partner)
 
                     return jsonify(is_subscribed=is_subscribed, is_authorized=is_authorized)

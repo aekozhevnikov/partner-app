@@ -1,7 +1,6 @@
 import logging
 import asyncio
 
-from aiogram import Bot
 from pydrive2.auth import GoogleAuth
 from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
@@ -15,7 +14,7 @@ handler = logging.StreamHandler()
 handler.setFormatter(log_formatter)
 logger.addHandler(handler)
 
-async def subscription(bot: Bot) -> bool:
+async def subscription(bot: bot) -> bool:
     try:
         
         member = await asyncio.wait_for(bot.get_chat_member(chat_id=KUPISALONID, user_id=bot.id), 5)
