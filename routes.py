@@ -85,7 +85,6 @@ def configure_routes(app, dp, bot):
                 loop = asyncio.new_event_loop()
                 asyncio.set_event_loop(loop)
                 result = loop.run_until_complete(run_checks())
-                loop.close()
                 
                 return result
             except Exception as e:
