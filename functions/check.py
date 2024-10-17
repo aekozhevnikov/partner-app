@@ -18,7 +18,8 @@ logger.addHandler(handler)
 async def subscription(bot: Bot) -> bool:
     try:
         
-        loop = asyncio.get_event_loop()
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
         
         member = await bot.get_chat_member(chat_id=KUPISALONID, user_id=bot.id)
         return member.status in ('administrator', 'creator')
