@@ -34,10 +34,11 @@ if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
     loop = asyncio.get_event_loop()
 
-    try:
-        loop.run_until_complete(start_bot())
-    except KeyboardInterrupt:
-        loop.run_until_complete(dp.shutdown_asyncgens())
-    finally:
-        loop.close()
+    # try:
+    loop.run_until_complete(start_bot())
+    loop.run_forever()
+    # except KeyboardInterrupt:
+    #     loop.run_until_complete(dp.shutdown_asyncgens())
+    # finally:
+    #     loop.close()
     

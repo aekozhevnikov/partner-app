@@ -17,11 +17,10 @@ logger.addHandler(handler)
 
 async def subscription(bot: Bot) -> bool:
     try:
-        loop = asyncio.new_event_loop()
+        loop = asyncio.get_event_loop()
         
         member = loop.run_until_complete(bot.get_chat_member(chat_id=KUPISALONID, user_id=bot.id))
-        
-        loop.close()
+    
         return member.status in ('administrator', 'creator')
     except Exception as e:
         logger.error(f"An error occurred in check_subscription: {e}")
@@ -39,8 +38,6 @@ async def auth(user_id: str, partner: str) -> bool:
         request = sheet.values().get(spreadsheetId=SPREADSHEETID, range=SHEETNAME)
         response = await loop.run_in_executor(None, request.execute)
         values = response.get('values', [])
-        
-        loop.close()
 
         for row in values:
             if row and row[1] == partner and row[2] == user_id and row[3] and row[4] and row[5] and row[6]:
