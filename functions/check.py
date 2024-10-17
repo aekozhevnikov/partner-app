@@ -30,10 +30,10 @@ async def auth(user_id: str, partner: str) -> bool:
         service = build('sheets', 'v4', credentials=credentials, cache_discovery=False)
         sheet = service.spreadsheets()
 
-        loop = asyncio.get_event_loop()
+        # loop = asyncio.get_event_loop()
 
         request = sheet.values().get(spreadsheetId=SPREADSHEETID, range=SHEETNAME)
-        response = loop.run_in_executor(None, request.execute)
+        response = await request.execute()
         values = response.get('values', [])
 
         for row in values:
