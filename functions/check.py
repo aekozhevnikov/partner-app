@@ -20,7 +20,6 @@ async def subscription(bot: Bot) -> bool:
         loop = asyncio.get_event_loop()
         
         member = await loop.run_until_complete(bot.get_chat_member(chat_id=KUPISALONID, user_id=bot.id))
-        logger.debug(member.status in ('administrator', 'creator'))
         return member.status in ('administrator', 'creator')
     except Exception as e:
         logger.error(f"An error occurred in check_subscription: {e}")
