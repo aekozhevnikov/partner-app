@@ -71,7 +71,7 @@ def configure_routes(app, dp, bot):
             return send_file(AUTH)
         
         @app.route('/check', methods=['GET'])
-        def check_subscription_and_authorization():
+        async def check_subscription_and_authorization():
             try:
                 user_id = request.args.get('user_id')
                 partner = request.args.get('partner')
