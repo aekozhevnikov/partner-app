@@ -14,7 +14,7 @@ handler = logging.StreamHandler()
 handler.setFormatter(log_formatter)
 logger.addHandler(handler)
 
-async def subscription(bot: bot) -> bool:
+async def subscription(bot) -> bool:
     try:
         
         member = await asyncio.wait_for(bot.get_chat_member(chat_id=KUPISALONID, user_id=bot.id), 5)
