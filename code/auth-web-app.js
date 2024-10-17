@@ -114,17 +114,6 @@ function validateName(input) {
   input.setCustomValidity("");
 }
 
-
-function showErrorNotification(error) {
-  Swal.fire({
-    icon: 'error',
-    title: 'Ошибка',
-    text: error.message,
-    timer: 3000,
-    showConfirmButton: false
-  });
-}
-
 let multiselect_block = document.querySelectorAll(".multiselect_block");
 multiselect_block.forEach(parent => {
   let label = parent.querySelector(".field_multiselect");

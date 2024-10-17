@@ -17,15 +17,13 @@ logger.addHandler(handler)
 async def save(arr: list[str]) -> bool:
     
     try:
-        
         credentials = Credentials.from_service_account_file('credentials.json')
         service = build('sheets', 'v4', credentials=credentials, cache_discovery=False)
         sheet = service.spreadsheets()
 
         loop = asyncio.get_event_loop()
         
-        # Определение диапазона последней строки
-        range_to_append = f"{SHEETNAME}!A:A"  # Измените "A:A" на нужный диапазон столбцов
+        range_to_append = f"{SHEETNAME}!A:A" 
         
         # Получение данных из последней строки
         request = sheet.values().get(spreadsheetId=SPREADSHEETID, range=range_to_append)
