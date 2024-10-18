@@ -32,8 +32,8 @@ async def auth(user_id: str, partner: str) -> bool:
         # loop = asyncio.get_event_loop()
 
         request = sheet.values().get(spreadsheetId=SPREADSHEETID, range=SHEETNAME)
-        response = request.execute()
-        values = await response.get('values', [])
+        response = await request.execute()
+        values = response.get('values', [])
 
         for row in values:
             if row and row[1] == partner and row[2] == user_id and row[3] and row[4] and row[5] and row[6]:
