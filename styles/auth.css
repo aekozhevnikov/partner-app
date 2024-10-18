@@ -112,7 +112,7 @@ p {
     background-color: var(--tg-theme-bg-color);
 }
 
-field_multiselect button+button {
+.field_multiselect button+button {
     margin-top: 10px;
 }
 
@@ -217,8 +217,4 @@ input[type="tel"] {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-}
-
-button:hover {
-    transform: scale(1.05);
 }
