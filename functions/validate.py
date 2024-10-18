@@ -2,7 +2,7 @@ import hashlib
 import urllib.parse
 import hmac
 
-async def verify_telegram_web_app_data(data, bot_token):
+def verify_telegram_web_app_data(data, bot_token):
 
     # HMAC-SHA-256 signature of the bot's token with the constant string WebAppData used as a key.
     secret_key = "WebAppData".encode()
