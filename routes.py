@@ -74,8 +74,8 @@ def configure_routes(app, dp, bot):
                 user_id = request.args.get('user_id')
                 partner = request.args.get('partner')
                 
-                is_subscribed = await subscription(bot)
                 is_authorized = await auth(user_id, partner)
+                is_subscribed = await subscription(bot)
 
                 return jsonify(is_subscribed=is_subscribed, is_authorized=is_authorized)
             except Exception as e:
