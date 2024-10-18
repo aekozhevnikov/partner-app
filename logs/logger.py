@@ -1,6 +1,6 @@
 import logging
 
-async def logger():
+def logger():
     log_formatter = logging.Formatter('[%(asctime)s] [%(levelname)s] [%(name)s] %(message)s')
     logger = logging.getLogger(__name__)
     logger.setLevel(logging.DEBUG)
@@ -9,3 +9,5 @@ async def logger():
     handler.setFormatter(log_formatter)
     logger.addHandler(handler)
     return logger
+
+logger = logger()
