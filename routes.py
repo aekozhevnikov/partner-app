@@ -1,25 +1,15 @@
-from logging.handlers import RotatingFileHandler
 from flask import send_file, jsonify, request
 from urllib.parse import unquote_plus
 
 import os
-import asyncio
-import logging
 
+from logs.logger import logger
 from functions.check import subscription, auth
 from functions.save import save
 from functions.get_values import get_values
 from functions.validate import verify_telegram_web_app_data
 
 from constants import BOT_TOKEN, HOME, AUTH
-
-log_formatter = logging.Formatter('[%(asctime)s] [%(levelname)s] [%(name)s] %(message)s')
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
-
-handler = logging.StreamHandler()
-handler.setFormatter(log_formatter)
-logger.addHandler(handler)
 
 def configure_routes(app, dp, bot):
     
