@@ -9,7 +9,6 @@ from aiogram import Bot, Dispatcher
 from constants import BOT_TOKEN
 
 app = Flask(__name__)
-
 bot = Bot(BOT_TOKEN)
 dp = Dispatcher()
 

@@ -84,7 +84,9 @@ async function fetchData() {
   }
 }
 
-fetchData();
+window.addEventListener('DOMContentLoaded', async () => {
+  await fetchData();
+});
 
 function formatPhoneNumber(input) {
 

@@ -79,7 +79,7 @@ const fetchData = async () => {
     }
 };
 
-window.addEventListener('load', async () => {
+window.addEventListener('DOMContentLoaded', async () => {
     await fetchData();
     await checkSubscriptionAndAuthorization();
 });
