@@ -1,7 +1,6 @@
 import logging
 import asyncio
 
-from pydrive2.auth import GoogleAuth
 from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
 from constants import DB, GROUPSSHEETNAME
@@ -21,10 +20,10 @@ async def get_values() -> list:
         service = build('sheets', 'v4', credentials=credentials, cache_discovery=False)
         sheet = service.spreadsheets()
         
-        loop = asyncio.get_event_loop()
+        # loop = asyncio.get_event_loop()
         
         request = sheet.values().get(spreadsheetId=DB, range=GROUPSSHEETNAME)
-        response = await loop.run_in_executor(None, request.execute)
+        response = request.execute()
         values = response.get('values', [])
 
         return values

@@ -1,7 +1,6 @@
 import logging
 import asyncio
 
-from pydrive2.auth import GoogleAuth
 from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
 from constants import SPREADSHEETID, SHEETNAME
@@ -21,13 +20,13 @@ async def save(arr: list[str]) -> bool:
         service = build('sheets', 'v4', credentials=credentials, cache_discovery=False)
         sheet = service.spreadsheets()
 
-        loop = asyncio.get_event_loop()
+        # loop = asyncio.get_event_loop()
         
         range_to_append = f"{SHEETNAME}!A:A" 
         
         # Получение данных из последней строки
         request = sheet.values().get(spreadsheetId=SPREADSHEETID, range=range_to_append)
-        response = await loop.run_in_executor(None, request.execute)
+        response = request.execute()
         values = response.get('values', [])
         last_row = len(values) + 1
                 
@@ -43,7 +42,7 @@ async def save(arr: list[str]) -> bool:
         save_request = sheet.values().append(spreadsheetId=SPREADSHEETID, range=range_to_save,
                               valueInputOption=value_input_option, body=value_range_body)
         
-        save_response = await loop.run_in_executor(None, save_request.execute)
+        save_response = save_request.execute()
         
         logger.info("Ueser data successfully saved to the spreadsheet")
 
