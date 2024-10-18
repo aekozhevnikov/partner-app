@@ -56,18 +56,18 @@ tg.onEvent('backButtonClicked', (event) => {
   tg.MainButton.hide();
 });
 
-function fetchData() {
+async function fetchData() {
 
   const selectElement = document.getElementById('field_select-type');
 
   try {
-    const response = fetch('/getdata');
+    const response = await fetch('/getdata');
     console.log(response);
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
 
-    const text = response.text();
+    const text = await response.text();
 
     const data = JSON.parse(text);
     const flatValues = data.flat();
@@ -85,7 +85,7 @@ function fetchData() {
 }
 
 window.addEventListener('DOMContentLoaded', async () => {
-  fetchData();
+  await fetchData();
 });
 
 function formatPhoneNumber(input) {
