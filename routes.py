@@ -39,9 +39,9 @@ def configure_routes(app, dp, bot):
                 logger.error('An error occurred: %s', str(e))
                 return jsonify({'error': str(e)}), 500
 
-        async def on_startup(dp):
+        def on_startup(dp):
             try:
-                await bot.set_webhook('') 
+                bot.set_webhook('') 
             except Exception as e:
                 logger.error(f"An error occurred in on_startup: {e}")
 
