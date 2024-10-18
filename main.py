@@ -31,7 +31,7 @@ async def start_bot():
     await dp.start_polling()
 
 if __name__ == '__main__':
-    asyncio.run(app.run(host='0.0.0.0', debug=True))
-    asyncio.run(start_bot())
+    app.run(host='0.0.0.0', debug=True)
+    start_bot()
 
     
