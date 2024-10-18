@@ -24,10 +24,10 @@ logger.addHandler(handler)
 def configure_routes(app, dp, bot):
     
         @app.route("/validate-init", methods=["GET"])
-        async def validate_init():
+        def validate_init():
             try:
                 decoded_data = {key: unquote_plus(value) for key, value in request.args.items()}
-                _hash = await verify_telegram_web_app_data(decoded_data, BOT_TOKEN)
+                _hash = verify_telegram_web_app_data(decoded_data, BOT_TOKEN)
 
                 if _hash == decoded_data.get("hash"):
                     logger.debug("Validation successful: %s", decoded_data)
@@ -39,9 +39,9 @@ def configure_routes(app, dp, bot):
                 logger.error('An error occurred: %s', str(e))
                 return jsonify({'error': str(e)}), 500
 
-        async def on_startup(dp):
+        def on_startup(dp):
             try:
-                await bot.set_webhook('') 
+                bot.set_webhook('') 
             except Exception as e:
                 logger.error(f"An error occurred in on_startup: {e}")
 
@@ -69,13 +69,13 @@ def configure_routes(app, dp, bot):
             return send_file(AUTH)
         
         @app.route('/check', methods=['GET'])
-        async def check_subscription_and_authorization():
+        def check_subscription_and_authorization():
             try:
                 user_id = request.args.get('user_id')
                 partner = request.args.get('partner')
                 
                 is_subscribed = subscription(bot)
-                is_authorized = await auth(user_id, partner)
+                is_authorized = auth(user_id, partner)
 
                 return jsonify(is_subscribed=is_subscribed, is_authorized=is_authorized)
             except Exception as e:

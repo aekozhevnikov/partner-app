@@ -27,18 +27,11 @@ logger.addHandler(file_handler)
 # Конфигурирование маршрутов
 route_conf = configure_routes(app, dp, bot)
 
-async def start_bot():
-    await dp.start_polling()
+def start_bot():
+    dp.start_polling()
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
-    # loop = asyncio.get_event_loop()
+    start_bot()
 
-    # try:
-    asyncio.run(start_bot())
-    # loop.run_forever()
-    # except KeyboardInterrupt:
-    #     loop.run_until_complete(dp.shutdown_asyncgens())
-    # finally:
-    #     loop.close()
     

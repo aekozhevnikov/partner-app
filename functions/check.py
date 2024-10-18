@@ -22,7 +22,7 @@ def subscription(bot) -> bool:
         logger.error(f"An error occurred in subscription: {e}")
         return False
     
-async def auth(user_id: str, partner: str) -> bool:
+def auth(user_id: str, partner: str) -> bool:
     try:
         
         credentials = Credentials.from_service_account_file('credentials.json')
