@@ -13,16 +13,16 @@ handler = logging.StreamHandler()
 handler.setFormatter(log_formatter)
 logger.addHandler(handler)
 
-def subscription(bot) -> bool:
+async def subscription(bot) -> bool:
     try:
         
-        member = bot.get_chat_member(chat_id=KUPISALONID, user_id=bot.id)
+        member = await bot.get_chat_member(chat_id=KUPISALONID, user_id=bot.id)
         return member.status in ('administrator', 'creator')
     except Exception as e:
         logger.error(f"An error occurred in subscription: {e}")
         return False
     
-def auth(user_id: str, partner: str) -> bool:
+async def auth(user_id: str, partner: str) -> bool:
     try:
         
         credentials = Credentials.from_service_account_file('credentials.json')

@@ -39,9 +39,9 @@ def configure_routes(app, dp, bot):
                 logger.error('An error occurred: %s', str(e))
                 return jsonify({'error': str(e)}), 500
 
-        def on_startup(dp):
+        async def on_startup(dp):
             try:
-                bot.set_webhook('') 
+                await bot.set_webhook('') 
             except Exception as e:
                 logger.error(f"An error occurred in on_startup: {e}")
 
@@ -75,7 +75,7 @@ def configure_routes(app, dp, bot):
                 partner = request.args.get('partner')
                 
                 is_subscribed = await subscription(bot)
-                is_authorized = auth(user_id, partner)
+                is_authorized = await auth(user_id, partner)
 
                 return jsonify(is_subscribed=is_subscribed, is_authorized=is_authorized)
             except Exception as e:
