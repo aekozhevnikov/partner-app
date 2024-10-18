@@ -91,12 +91,12 @@ def configure_routes(app, dp, bot):
                 return jsonify(error=str(e)), 500
             
         @app.route('/savedata', methods=['GET'])
-        def save_data():
+        async def save_data():
             
             try:
                 values_list = list(request.args.values())
                 logger.debug(f"Data successfully recived from mini-app: {values_list}")
-                success = asyncio.run(save(arr=values_list))
+                success = await save(arr=values_list)
                 
                 return jsonify(success=success)
             except Exception as e:
@@ -104,10 +104,10 @@ def configure_routes(app, dp, bot):
                 return jsonify(error=str(e)), 500
             
         @app.route('/getdata', methods=['GET'])
-        def get_data():
+        async def get_data():
 
             try:
-                values = asyncio.run(get_values())
+                values = await get_values()
                 
                 return jsonify(values)
             except Exception as e:
