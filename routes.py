@@ -80,10 +80,10 @@ def configure_routes(app, dp, bot):
 
                     return jsonify(is_subscribed=is_subscribed, is_authorized=is_authorized)
                 
-                loop = asyncio.new_event_loop()
-                asyncio.set_event_loop(loop)
-                result = loop.run_until_complete(run_checks())
-                loop.close()
+                # loop = asyncio.new_event_loop()
+                # asyncio.set_event_loop(loop)
+                result = asyncio.run(run_checks())
+                # loop.close()
                 
                 return result
             except Exception as e:
