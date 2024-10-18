@@ -13,14 +13,12 @@ handler = logging.StreamHandler()
 handler.setFormatter(log_formatter)
 logger.addHandler(handler)
 
-async def get_values() -> list:
+def get_values() -> list:
     try:
         
         credentials = Credentials.from_service_account_file('credentials.json')
         service = build('sheets', 'v4', credentials=credentials, cache_discovery=False)
         sheet = service.spreadsheets()
-        
-        # loop = asyncio.get_event_loop()
         
         request = sheet.values().get(spreadsheetId=DB, range=GROUPSSHEETNAME)
         response = request.execute()
