@@ -73,7 +73,6 @@ const fetchData = async () => {
     try {
         const response = await fetch(`/validate-init?${tg.initData}`);
         const data = await response.json();
-        console.log(data);
     } catch (error) {
         console.error('Error:', error);
     }
