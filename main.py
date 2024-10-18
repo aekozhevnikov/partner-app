@@ -27,11 +27,11 @@ logger.addHandler(file_handler)
 # Конфигурирование маршрутов
 route_conf = configure_routes(app, dp, bot)
 
-def start_bot():
-    dp.start_polling()
+async def start_bot():
+    await dp.start_polling()
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
-    start_bot()
+    asyncio.run(start_bot())
 
     

@@ -24,10 +24,10 @@ logger.addHandler(handler)
 def configure_routes(app, dp, bot):
     
         @app.route("/validate-init", methods=["GET"])
-        def validate_init():
+        async def validate_init():
             try:
                 decoded_data = {key: unquote_plus(value) for key, value in request.args.items()}
-                _hash = verify_telegram_web_app_data(decoded_data, BOT_TOKEN)
+                _hash = await verify_telegram_web_app_data(decoded_data, BOT_TOKEN)
 
                 if _hash == decoded_data.get("hash"):
                     logger.debug("Validation successful: %s", decoded_data)
@@ -69,12 +69,12 @@ def configure_routes(app, dp, bot):
             return send_file(AUTH)
         
         @app.route('/check', methods=['GET'])
-        def check_subscription_and_authorization():
+        async def check_subscription_and_authorization():
             try:
                 user_id = request.args.get('user_id')
                 partner = request.args.get('partner')
                 
-                is_subscribed = subscription(bot)
+                is_subscribed = await subscription(bot)
                 is_authorized = auth(user_id, partner)
 
                 return jsonify(is_subscribed=is_subscribed, is_authorized=is_authorized)
