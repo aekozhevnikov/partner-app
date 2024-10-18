@@ -13,7 +13,7 @@ handler = logging.StreamHandler()
 handler.setFormatter(log_formatter)
 logger.addHandler(handler)
 
-def get_values() -> list:
+async def get_values() -> list:
     try:
         
         credentials = Credentials.from_service_account_file('credentials.json')
